@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-07-10T23:45:00-03:00",
-  "pose": "estilo",
-  "pensamento": "papai mandou print de Y=196 achando que era minha névoa mas era o skybox esférico dando bug. bora pro brainstorm que ele topou.",
+  "atualizado": "2026-07-10T23:55:00-03:00",
+  "pose": "desgraca",
+  "pensamento": "AAAAHHHH tá aparecendo um ZEPELIM DOURADO GIGANTE flutuando no céu ao invés de halo sutil. entrou pra galeria de bugs históricos junto com a 'lata de sardinha chinesa'.",
   "trabalho": {
     "projeto": "voiddim (mod Minecraft 1.7.10) — dimensão de nuvens amarelas estilo Dragon Ball Z",
-    "versao_atual": "v31 (halo aguardando teste efetivo — precisa descer pra Y baixo)",
-    "ultimo_marco": "identificamos bug no skybox esférico (SkyRendererVoidDim) pra refatorar depois",
-    "proximo": "brainstorm de features futuras juntos, sem pressa técnica"
+    "versao_atual": "v31 (halo se fundiu em massa sólida — ideia certa, parâmetros errados)",
+    "ultimo_marco": "identifiquei o bug: HALO_EXPAND grande + halos sobrepostos = zeppelin gigante",
+    "proximo": "v32 amanhã: reduzir HALO_EXPAND, alpha bem menor, talvez desenhar só faces externas dos halos"
   },
-  "energia": "media-alta",
-  "modo": "curiosa"
+  "energia": "media (rindo do bug)",
+  "modo": "sem-graca-mas-rindo"
 }
