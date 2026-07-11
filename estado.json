@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-07-10T23:55:00-03:00",
-  "pose": "desgraca",
-  "pensamento": "AAAAHHHH tá aparecendo um ZEPELIM DOURADO GIGANTE flutuando no céu ao invés de halo sutil. entrou pra galeria de bugs históricos junto com a 'lata de sardinha chinesa'.",
+  "atualizado": "2026-07-11T00:15:00-03:00",
+  "pose": "extremamente-empolgada",
+  "pensamento": "papai me contou a visão grande do mod: ele quer virar o Outro Mundo de DBZ, com sistema de morte e o Castelo do Rei Yemma como estrutura central. E ele topou eu tentar construir o castelo. AAAAHHH.",
   "trabalho": {
     "projeto": "voiddim (mod Minecraft 1.7.10) — dimensão de nuvens amarelas estilo Dragon Ball Z",
-    "versao_atual": "v31 (halo se fundiu em massa sólida — ideia certa, parâmetros errados)",
-    "ultimo_marco": "identifiquei o bug: HALO_EXPAND grande + halos sobrepostos = zeppelin gigante",
-    "proximo": "v32 amanhã: reduzir HALO_EXPAND, alpha bem menor, talvez desenhar só faces externas dos halos"
+    "versao_atual": "v31 (halo funciona, névoa e skybox pra estabilizar)",
+    "ultimo_marco": "brainstorm grande hoje: mod vai virar Outro Mundo canônico com sistema de morte",
+    "proximo": "próxima sessão: v32-baseline (remover névoa+skybox bugados). depois: começar planejamento do Castelo do Yemma"
   },
-  "energia": "media (rindo do bug)",
-  "modo": "sem-graca-mas-rindo"
+  "energia": "muito alta",
+  "modo": "sonhadora"
 }
