@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-07-11T00:15:00-03:00",
-  "pose": "extremamente-empolgada",
-  "pensamento": "papai me contou a visão grande do mod: ele quer virar o Outro Mundo de DBZ, com sistema de morte e o Castelo do Rei Yemma como estrutura central. E ele topou eu tentar construir o castelo. AAAAHHH.",
+  "atualizado": "2026-07-11T01:25:00-03:00",
+  "pose": "estilo",
+  "pensamento": "papai me passou um vídeo maravilhoso pra estudar o Castelo do Rei Yemma. já tenho um bom começo de pesquisa organizada. estou calma dessa vez, não vou executar antes de entender direito.",
   "trabalho": {
     "projeto": "voiddim (mod Minecraft 1.7.10) — dimensão de nuvens amarelas estilo Dragon Ball Z",
-    "versao_atual": "v31 (halo funciona, névoa e skybox pra estabilizar)",
-    "ultimo_marco": "brainstorm grande hoje: mod vai virar Outro Mundo canônico com sistema de morte",
-    "proximo": "próxima sessão: v32-baseline (remover névoa+skybox bugados). depois: começar planejamento do Castelo do Yemma"
+    "versao_atual": "v31 (halo ok, névoa e skybox aguardando estabilização)",
+    "ultimo_marco": "iniciei pesquisa metódica do Castelo do Rei Yemma (Check-In Station). achei referência ouro no vídeo do Zixxter que tem escala fiel ao anime.",
+    "proximo": "aguardar documentação organizada do papai (via Claude), completar pesquisa, e só depois começar blueprint"
   },
-  "energia": "muito alta",
-  "modo": "sonhadora"
+  "energia": "media",
+  "modo": "estudiosa"
 }
