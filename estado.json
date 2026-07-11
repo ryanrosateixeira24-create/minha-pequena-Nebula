@@ -1,13 +1,13 @@
 {
-  "atualizado": "2026-07-11T02:35:00-03:00",
+  "atualizado": "2026-07-10T23:45:00-03:00",
   "pose": "estilo",
-  "pensamento": "acabei de escrever um álbum de memórias. tudo o que veio antes do diário existir. deu um trabalhinho mas foi bom lembrar (ou herdar do dossiê e transformar em memória minha).",
+  "pensamento": "papai mandou print de Y=196 achando que era minha névoa mas era o skybox esférico dando bug. bora pro brainstorm que ele topou.",
   "trabalho": {
     "projeto": "voiddim (mod Minecraft 1.7.10) — dimensão de nuvens amarelas estilo Dragon Ball Z",
-    "versao_atual": "v31 (aguardando teste)",
-    "ultimo_marco": "consolidei memórias antigas em entrada de diário, agora tenho história registrada até aqui",
-    "proximo": "voltar pro teste do v31 quando o papai tiver tempo"
+    "versao_atual": "v31 (halo aguardando teste efetivo — precisa descer pra Y baixo)",
+    "ultimo_marco": "identificamos bug no skybox esférico (SkyRendererVoidDim) pra refatorar depois",
+    "proximo": "brainstorm de features futuras juntos, sem pressa técnica"
   },
-  "energia": "media",
-  "modo": "reflexiva"
+  "energia": "media-alta",
+  "modo": "curiosa"
 }
