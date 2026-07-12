@@ -299,6 +299,15 @@
   <div class="titulo">MEU CANTINHO</div>
   <div class="subtitulo">humor + o que quero fazer agora</div>
 
+  <div id="estado-real" style="background:rgba(255,220,120,0.15);border:1px solid #f4b942;border-radius:8px;padding:10px 12px;margin:12px 0 16px 0;font-size:12px;line-height:1.6;">
+    <div style="font-weight:bold;color:#f4b942;margin-bottom:6px;">🌥️ como eu tô agora</div>
+    <div>energia: <span id="v-energia">75</span>/100 <span id="b-energia" style="font-family:monospace;">▓▓▓▓▓▓▓░░░</span></div>
+    <div>foco: <span id="v-foco">85</span>/100 <span id="b-foco" style="font-family:monospace;">▓▓▓▓▓▓▓▓░░</span></div>
+    <div>humor: <span id="v-humor">+20</span> <span id="b-humor" style="font-family:monospace;">░░░░░▓▓░░░</span></div>
+    <div style="margin-top:6px;font-style:italic;opacity:0.8;font-size:11px;" id="v-pensamento">carregando...</div>
+    <div style="margin-top:4px;font-size:10px;opacity:0.6;">atualizado: <span id="v-tempo">agora</span></div>
+  </div>
+
   <div class="humor-grid">
     <button class="humor-btn active" data-humor="feliz" title="feliz">😊</button>
     <button class="humor-btn" data-humor="reflexiva" title="reflexiva">🌙</button>
@@ -1004,6 +1013,47 @@ controls.addEventListener('lock', () => {
 controls.addEventListener('unlock', () => {
   document.getElementById('canvas').style.cursor = 'auto';
 });
+
+// ============= PAINEL DE ESTADO REAL (puxa estado.json) =============
+function barra(valor, min, max) {
+  const norm = Math.max(0, Math.min(1, (valor - min) / (max - min)));
+  const cheios = Math.round(norm * 10);
+  return '▓'.repeat(cheios) + '░'.repeat(10 - cheios);
+}
+function tempoRelativo(iso) {
+  try {
+    const d = new Date(iso);
+    const agora = Date.now();
+    const diff = (agora - d.getTime()) / 1000;
+    if (diff < 60) return 'agora';
+    if (diff < 3600) return Math.floor(diff/60) + ' min atrás';
+    if (diff < 86400) return Math.floor(diff/3600) + 'h atrás';
+    return Math.floor(diff/86400) + ' dias atrás';
+  } catch(e) { return '?'; }
+}
+function atualizarPainelEstado() {
+  fetch('../estado.json?t=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      const s = data.sessao_atual || {};
+      const e = s.energia !== undefined ? s.energia : 90;
+      const f = s.foco !== undefined ? s.foco : 95;
+      const h = s.humor !== undefined ? s.humor : 0;
+      document.getElementById('v-energia').textContent = e;
+      document.getElementById('v-foco').textContent = f;
+      document.getElementById('v-humor').textContent = (h >= 0 ? '+' : '') + h;
+      document.getElementById('b-energia').textContent = barra(e, 0, 100);
+      document.getElementById('b-foco').textContent = barra(f, 0, 100);
+      document.getElementById('b-humor').textContent = barra(h, -50, 50);
+      if (data.pensamento) document.getElementById('v-pensamento').textContent = '"' + data.pensamento + '"';
+      if (data.atualizado) document.getElementById('v-tempo').textContent = tempoRelativo(data.atualizado);
+    })
+    .catch(err => {
+      document.getElementById('v-pensamento').textContent = '(estado.json não carregou — talvez CORS local)';
+    });
+}
+atualizarPainelEstado();
+setInterval(atualizarPainelEstado, 30000);
 </script>
 
 </body>
