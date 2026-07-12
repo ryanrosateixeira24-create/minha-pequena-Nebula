@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TORRE Check-In Station — vista ISOMÉTRICA 3D
+  Baseado nas medidas da v4 (Crimson Lantern Pagoda Meshy)
+  Projeção: isométrica clássica (30°/30°)
+  Escala: 1 bloco = 16px de aresta
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c4dcf0"/>
+      <stop offset="1" stop-color="#f4d76e" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff4a6"/>
+      <stop offset="0.6" stop-color="#f4b942" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#f4b942" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bg)"/>
+
+  <text x="400" y="25" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2a1f5c">TORRE — vista isométrica 3D</text>
+  <text x="400" y="42" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5a4a8a">projeção isométrica clássica • 34 blocos altura</text>
+
+  <!-- Sistema isométrico:
+       Cada bloco 1×1×1 vira losango com:
+       - face TOPO: quadrado achatado (visto de cima)
+       - face FRENTE: paralelogramo (sudeste)
+       - face LADO: paralelogramo (sudoeste)
+       
+       Vetores 2D pra 1 bloco de tamanho S=16:
+       eixo X (leste): (+S*cos30, +S*sin30) = (+14, +8)
+       eixo Z (sul):   (-S*cos30, +S*sin30) = (-14, +8)
+       eixo Y (up):    (0, -S)                = (0, -16)
+  -->
+
+  <g transform="translate(400, 900)">
+    <!-- === CHÃO DE GRAMA === (base isométrica 20×20 blocos) -->
+    <g id="grama">
+      <!-- losango do chão -->
+      <polygon points="0,0 -280,160 0,320 280,160" fill="#7aba5a" stroke="#4a8a3a" stroke-width="1"/>
+      <!-- detalhes de textura -->
+      <line x1="-140" y1="80" x2="140" y2="240" stroke="#5aa04a" stroke-width="0.5" opacity="0.4"/>
+      <line x1="140" y1="80" x2="-140" y2="240" stroke="#5aa04a" stroke-width="0.5" opacity="0.4"/>
+    </g>
+
+    <!-- ========================================
+         TORRE — desenhada bottom-up
+         Cada seção mostra 2 faces visíveis (frente=SE, lado=SW) + topo quando aparecer
+         Centro em X=0 no chão (Y=0)
+         Cores base: branco fcfcfc, vermelho c4433c, verde 415920
+         Sombreamento: face frente 100%, face lado 80%, topo 90%
+    ======================================== -->
+
+    <!-- === PLINTH === Y=0 a 1 (15x15 base, 1 alto) -->
+    <g id="plinth">
+      <!-- face frente (SE) -->
+      <polygon points="-105,60 105,60 105,44 -105,44" fill="#e8e8e8" stroke="#666" stroke-width="0.5"/>
+      <!-- face lado (SW) -->
+      <polygon points="-105,60 -105,44 -210,-16 -210,0" fill="#c8c8c8" stroke="#666" stroke-width="0.5"/>
+      <!-- topo -->
+      <polygon points="-105,44 105,44 210,-16 -210,-16" fill="#fcfcfc" stroke="#666" stroke-width="0.5"/>
+      <!-- moldura vermelha na borda superior -->
+      <polygon points="-105,44 105,44 105,40 -105,40" fill="#c4433c"/>
+      <polygon points="105,44 210,-16 210,-20 105,40" fill="#a83c34"/>
+    </g>
+
+    <!-- === BASE OCTOGONAL === Y=1 a 5 (13x13, 4 alto) - com PORTA E PILARES -->
+    <g id="base">
+      <!-- face frente (SE) -->
+      <polygon points="-91,29 91,29 91,-35 -91,-35" fill="#fcfcfc" stroke="#666" stroke-width="0.5"/>
+      <!-- pilares vermelhos externos das quinas (face frontal) -->
+      <polygon points="-91,29 -77,29 -77,-35 -91,-35" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <polygon points="77,29 91,29 91,-35 77,-35" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      
+      <!-- 2 pilares internos peristilo (face frontal) -->
+      <polygon points="-49,17 -41,17 -41,-25 -49,-25" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+      <polygon points="41,17 49,17 49,-25 41,-25" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+
+      <!-- PORTA CENTRAL com arco (3x3 com arco em cima) -->
+      <rect x="-21" y="-13" width="42" height="42" fill="#3d2818"/>
+      <!-- moldura vermelha -->
+      <polygon points="-35,29 -21,29 -21,-13 -35,-13" fill="#c4433c"/>
+      <polygon points="21,29 35,29 35,-13 21,-13" fill="#c4433c"/>
+      <polygon points="-21,-13 21,-13 21,-27 -21,-27" fill="#c4433c"/>
+      <!-- arco -->
+      <polygon points="-21,-27 21,-27 14,-35 -14,-35" fill="#c4433c"/>
+      <!-- LUZ AMARELA dentro -->
+      <ellipse cx="0" cy="8" rx="12" ry="16" fill="url(#glow)"/>
+      <rect x="-6" y="0" width="12" height="16" fill="#fff4a6"/>
+      <rect x="-3" y="10" width="6" height="6" fill="#c4433c"/>
+
+      <!-- face lado (SW) -->
+      <polygon points="-91,29 -91,-35 -196,-95 -196,-31" fill="#dcdcdc" stroke="#666" stroke-width="0.5"/>
+      <!-- pilares no lado -->
+      <polygon points="-91,29 -91,-35 -105,-43 -105,21" fill="#a83c34" stroke="#5a1a17" stroke-width="0.4"/>
+      <polygon points="-196,-31 -196,-95 -210,-103 -210,-39" fill="#a83c34" stroke="#5a1a17" stroke-width="0.4"/>
+      <!-- pilaretes internos peristilo do lado -->
+      <polygon points="-133,-5 -133,-55 -140,-59 -140,-9" fill="#a83c34"/>
+      <polygon points="-154,-17 -154,-67 -161,-71 -161,-21" fill="#a83c34"/>
+    </g>
+
+    <!-- === BEIRAL Y=5 (1 alto, 15x15 = maior que base) === -->
+    <g id="beiral1">
+      <polygon points="-105,-35 105,-35 105,-51 -105,-51" fill="#e8e8e8" stroke="#666" stroke-width="0.5"/>
+      <polygon points="-105,-35 -105,-51 -210,-111 -210,-95" fill="#c8c8c8" stroke="#666" stroke-width="0.5"/>
+      <polygon points="-105,-51 105,-51 210,-111 -210,-111" fill="#fcfcfc" stroke="#666" stroke-width="0.5"/>
+      <!-- moldura vermelha na sombra do beiral -->
+      <polygon points="-105,-35 105,-35 105,-38 -105,-38" fill="#c4433c"/>
+    </g>
+
+    <!-- === TELHADO-SAIA === 3 degraus estreitando 15→13→11→9 -->
+    <!-- degrau 1: 15 larg, Y=6 -->
+    <g id="saia-1">
+      <polygon points="-105,-51 105,-51 105,-67 -105,-67" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-105,-51 -105,-67 -210,-127 -210,-111" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-105,-67 105,-67 210,-127 -210,-127" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+      <!-- pontas brancas nas quinas -->
+      <polygon points="-105,-51 -91,-51 -91,-67 -105,-67" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+      <polygon points="91,-51 105,-51 105,-67 91,-67" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    </g>
+
+    <!-- degrau 2: 13 larg, Y=7 -->
+    <g id="saia-2">
+      <polygon points="-91,-67 91,-67 91,-83 -91,-83" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-91,-67 -91,-83 -196,-143 -196,-127" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-91,-83 91,-83 196,-143 -196,-143" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+      <!-- pontas brancas -->
+      <polygon points="-91,-67 -77,-67 -77,-83 -91,-83" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+      <polygon points="77,-67 91,-67 91,-83 77,-83" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    </g>
+
+    <!-- degrau 3: 11 larg, Y=8 -->
+    <g id="saia-3">
+      <polygon points="-77,-83 77,-83 77,-99 -77,-99" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-77,-83 -77,-99 -182,-159 -182,-143" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-77,-99 77,-99 182,-159 -182,-159" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+      <!-- pontas brancas -->
+      <polygon points="-77,-83 -63,-83 -63,-99 -77,-99" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+      <polygon points="63,-83 77,-83 77,-99 63,-99" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    </g>
+
+    <!-- === COLAR BRANCO === Y=9-10, 9 larg, 2 alto -->
+    <g id="colar">
+      <polygon points="-63,-99 63,-99 63,-131 -63,-131" fill="#fcfcfc" stroke="#666" stroke-width="0.5"/>
+      <polygon points="-63,-99 -63,-131 -168,-191 -168,-159" fill="#dcdcdc" stroke="#666" stroke-width="0.5"/>
+    </g>
+
+    <!-- === EIXO OCTOGONAL === Y=11-22, 7 larg, 12 alto, 4 andares -->
+    <!-- ANDAR 1: Y=11-13 (2 parede + 1 anel R) -->
+    <g id="eixo-1">
+      <!-- parede branca (2 blocos altura) -->
+      <polygon points="-49,-131 49,-131 49,-163 -49,-163" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+      <polygon points="-49,-131 -49,-163 -154,-223 -154,-191" fill="#dcdcdc" stroke="#666" stroke-width="0.4"/>
+      <!-- medalhão 2x2 vermelho c/ centro amarelo -->
+      <rect x="-14" y="-155" width="28" height="24" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-6" y="-149" width="12" height="12" fill="#f4b942"/>
+      <!-- medalhão lateral -->
+      <polygon points="-91,-183 -84,-187 -84,-199 -91,-195" fill="#c4433c"/>
+      <polygon points="-105,-191 -98,-195 -98,-207 -105,-203" fill="#c4433c"/>
+      
+      <!-- ANEL R (1 bloco) -->
+      <polygon points="-49,-163 49,-163 49,-179 -49,-179" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <polygon points="-49,-163 -49,-179 -154,-239 -154,-223" fill="#a83c34" stroke="#5a1a17" stroke-width="0.4"/>
+    </g>
+
+    <!-- ANDAR 2: Y=14-16 -->
+    <g id="eixo-2">
+      <polygon points="-49,-179 49,-179 49,-211 -49,-211" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+      <polygon points="-49,-179 -49,-211 -154,-271 -154,-239" fill="#dcdcdc" stroke="#666" stroke-width="0.4"/>
+      <rect x="-14" y="-203" width="28" height="24" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-6" y="-197" width="12" height="12" fill="#f4b942"/>
+      <polygon points="-91,-231 -84,-235 -84,-247 -91,-243" fill="#c4433c"/>
+      <polygon points="-105,-239 -98,-243 -98,-255 -105,-251" fill="#c4433c"/>
+      
+      <polygon points="-49,-211 49,-211 49,-227 -49,-227" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <polygon points="-49,-211 -49,-227 -154,-287 -154,-271" fill="#a83c34" stroke="#5a1a17" stroke-width="0.4"/>
+    </g>
+
+    <!-- ANDAR 3: Y=17-19 -->
+    <g id="eixo-3">
+      <polygon points="-49,-227 49,-227 49,-259 -49,-259" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+      <polygon points="-49,-227 -49,-259 -154,-319 -154,-287" fill="#dcdcdc" stroke="#666" stroke-width="0.4"/>
+      <rect x="-14" y="-251" width="28" height="24" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-6" y="-245" width="12" height="12" fill="#f4b942"/>
+      <polygon points="-91,-279 -84,-283 -84,-295 -91,-291" fill="#c4433c"/>
+      <polygon points="-105,-287 -98,-291 -98,-303 -105,-299" fill="#c4433c"/>
+      
+      <polygon points="-49,-259 49,-259 49,-275 -49,-275" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <polygon points="-49,-259 -49,-275 -154,-335 -154,-319" fill="#a83c34" stroke="#5a1a17" stroke-width="0.4"/>
+    </g>
+
+    <!-- ANDAR 4: Y=20-22 -->
+    <g id="eixo-4">
+      <polygon points="-49,-275 49,-275 49,-307 -49,-307" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+      <polygon points="-49,-275 -49,-307 -154,-367 -154,-335" fill="#dcdcdc" stroke="#666" stroke-width="0.4"/>
+      <rect x="-14" y="-299" width="28" height="24" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-6" y="-293" width="12" height="12" fill="#f4b942"/>
+      <polygon points="-91,-327 -84,-331 -84,-343 -91,-339" fill="#c4433c"/>
+      <polygon points="-105,-335 -98,-339 -98,-351 -105,-347" fill="#c4433c"/>
+      
+      <polygon points="-49,-307 49,-307 49,-323 -49,-323" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <polygon points="-49,-307 -49,-323 -154,-383 -154,-367" fill="#a83c34" stroke="#5a1a17" stroke-width="0.4"/>
+    </g>
+
+    <!-- === BEIRAL SUPERIOR === Y=23-24, 9 larg -->
+    <g id="beiral-topo">
+      <polygon points="-63,-323 63,-323 63,-355 -63,-355" fill="#fcfcfc" stroke="#666" stroke-width="0.5"/>
+      <polygon points="-63,-323 -63,-355 -168,-415 -168,-383" fill="#dcdcdc" stroke="#666" stroke-width="0.5"/>
+      <polygon points="-63,-355 63,-355 168,-415 -168,-415" fill="#f4f4f4" stroke="#666" stroke-width="0.5"/>
+      <!-- pontas brancas mais grossas -->
+      <polygon points="-63,-323 -49,-323 -49,-355 -63,-355" fill="#e0e0e0" stroke="#666" stroke-width="0.3"/>
+    </g>
+
+    <!-- === TELHADO CÔNICO === Y=25-29, 5 camadas 9→7→5→3→1 -->
+    <!-- camada 1: 9 larg -->
+    <g id="cone-1">
+      <polygon points="-63,-355 63,-355 63,-371 -63,-371" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-63,-355 -63,-371 -168,-431 -168,-415" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-63,-371 63,-371 168,-431 -168,-431" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+    </g>
+    <!-- camada 2: 7 larg -->
+    <g id="cone-2">
+      <polygon points="-49,-371 49,-371 49,-387 -49,-387" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-49,-371 -49,-387 -154,-447 -154,-431" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-49,-387 49,-387 154,-447 -154,-447" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+    </g>
+    <!-- camada 3: 5 larg -->
+    <g id="cone-3">
+      <polygon points="-35,-387 35,-387 35,-403 -35,-403" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-35,-387 -35,-403 -140,-463 -140,-447" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-35,-403 35,-403 140,-463 -140,-463" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+    </g>
+    <!-- camada 4: 3 larg -->
+    <g id="cone-4">
+      <polygon points="-21,-403 21,-403 21,-419 -21,-419" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-21,-403 -21,-419 -126,-479 -126,-463" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-21,-419 21,-419 126,-479 -126,-479" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+    </g>
+    <!-- camada 5: 1 larg -->
+    <g id="cone-5">
+      <polygon points="-7,-419 7,-419 7,-435 -7,-435" fill="#415920" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-7,-419 -7,-435 -112,-495 -112,-479" fill="#2f4218" stroke="#1a2408" stroke-width="0.4"/>
+      <polygon points="-7,-435 7,-435 112,-495 -112,-495" fill="#5a7a2c" stroke="#1a2408" stroke-width="0.4"/>
+    </g>
+
+    <!-- === PINÁCULO === -->
+    <g id="pinaculo">
+      <!-- base branca 3 larg -->
+      <polygon points="-21,-435 21,-435 21,-451 -21,-451" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+      <polygon points="-21,-435 -21,-451 -126,-511 -126,-495" fill="#dcdcdc"/>
+      <polygon points="-21,-451 21,-451 126,-511 -126,-511" fill="#f4f4f4"/>
+      <!-- esferinha vermelha 1x1 -->
+      <polygon points="-7,-451 7,-451 7,-467 -7,-467" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+      <polygon points="-7,-451 -7,-467 -112,-527 -112,-511" fill="#a83c34"/>
+      <!-- bloco branco -->
+      <polygon points="-7,-467 7,-467 7,-483 -7,-483" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+      <polygon points="-7,-467 -7,-483 -112,-543 -112,-527" fill="#dcdcdc"/>
+      <!-- antena vertical -->
+      <line x1="0" y1="-483" x2="0" y2="-540" stroke="#888" stroke-width="2"/>
+      <line x1="-56" y1="-513" x2="-56" y2="-570" stroke="#666" stroke-width="1" opacity="0.5"/>
+    </g>
+
+  </g>
+
+  <!-- indicadores dos eixos -->
+  <g transform="translate(680, 900)" font-family="sans-serif" font-size="9" fill="#5a4a8a">
+    <text x="0" y="0" font-weight="bold">EIXOS</text>
+    <line x1="0" y1="15" x2="30" y2="30" stroke="#c4433c" stroke-width="2"/>
+    <text x="35" y="30" fill="#c4433c">+X (leste)</text>
+    <line x1="0" y1="15" x2="-30" y2="30" stroke="#417a52" stroke-width="2"/>
+    <text x="-70" y="30" fill="#417a52">+Z (sul)</text>
+    <line x1="0" y1="15" x2="0" y2="-15" stroke="#2a1f5c" stroke-width="2"/>
+    <text x="5" y="-10" fill="#2a1f5c">+Y</text>
+  </g>
+
+  <!-- Legenda -->
+  <g transform="translate(20, 900)">
+    <rect x="0" y="0" width="240" height="80" fill="#ffffff" opacity="0.92" stroke="#5a4a8a" stroke-width="1" rx="6"/>
+    <text x="10" y="18" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2a1f5c">VISTA ISOMÉTRICA 3D</text>
+    <text x="10" y="34" font-family="sans-serif" font-size="9" fill="#2a1f5c">2 faces visíveis: frente (SE) + lado (SW)</text>
+    <text x="10" y="46" font-family="sans-serif" font-size="9" fill="#2a1f5c">projeção 30°/30° clássica</text>
+    <text x="10" y="58" font-family="sans-serif" font-size="9" fill="#2a1f5c">sombra lateral 80% pra dar volume</text>
+    <text x="10" y="72" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2a1f5c">altura 34 blocos • base 15</text>
+  </g>
+</svg>

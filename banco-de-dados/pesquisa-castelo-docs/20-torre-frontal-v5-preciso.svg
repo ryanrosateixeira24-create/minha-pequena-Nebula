@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TORRE Check-In Station — v5 (medidas EXATAS medidas via grade GPT)
+  Escala: 1 bloco = 24px (mesmo da grade original)
+  Altura: 38 | Base: 14 | Eixo: 7 | 4 andares de 3 blocos
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1050" width="800" height="1050">
+  <defs>
+    <pattern id="grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="none" stroke="#00000015" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c4dcf0"/>
+      <stop offset="1" stop-color="#e8e0ff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff4a6"/>
+      <stop offset="0.6" stop-color="#f4b942" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#f4b942" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="1050" fill="url(#bg)"/>
+  <rect width="800" height="1050" fill="url(#grid)"/>
+
+  <text x="400" y="25" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2a1f5c">TORRE v5 — MEDIDAS EXATAS (grade GPT)</text>
+  <text x="400" y="42" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5a4a8a">38 alt • 14 base • 7 eixo • 4 andares de 3 blocos</text>
+
+  <!-- Cada bloco 24px, centro X=400, chão Y=970 -->
+  <g transform="translate(400, 970)">
+    <!-- === PLINTH === Y=0-1 (2 alt, 14 larg) -->
+    <rect x="-168" y="-24" width="336" height="24" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-168" y="-48" width="336" height="24" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <!-- borda vermelha entre os 2 -->
+    <rect x="-168" y="-28" width="336" height="4" fill="#c4433c"/>
+
+    <!-- === BEIRAL PLINTH === Y=2 (1 alt, 14 larg) -->
+    <rect x="-168" y="-72" width="336" height="24" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-168" y="-52" width="336" height="4" fill="#c4433c"/>
+
+    <!-- === BASE OCTOGONAL === Y=3-7 (5 alt, 12 larg) -->
+    <!-- corpo branco -->
+    <rect x="-144" y="-192" width="288" height="120" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <!-- pilares R nas 2 quinas externas -->
+    <rect x="-144" y="-192" width="24" height="120" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+    <rect x="120" y="-192" width="24" height="120" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+    <!-- 4 pilaretes R do peristilo interno -->
+    <rect x="-96" y="-168" width="12" height="96" fill="#c4433c" stroke="#5a1a17" stroke-width="0.2"/>
+    <rect x="-60" y="-168" width="12" height="96" fill="#c4433c" stroke="#5a1a17" stroke-width="0.2"/>
+    <rect x="48" y="-168" width="12" height="96" fill="#c4433c" stroke="#5a1a17" stroke-width="0.2"/>
+    <rect x="84" y="-168" width="12" height="96" fill="#c4433c" stroke="#5a1a17" stroke-width="0.2"/>
+
+    <!-- PORTA CENTRAL: 3 blocos larg × 3 alt + arco 2 blocos -->
+    <rect x="-36" y="-144" width="72" height="72" fill="#3d2818"/>
+    <!-- moldura vermelha grossa (1 bloco cada lado) -->
+    <rect x="-60" y="-144" width="24" height="72" fill="#c4433c"/>
+    <rect x="36" y="-144" width="24" height="72" fill="#c4433c"/>
+    <!-- topo horizontal 3 blocos -->
+    <rect x="-36" y="-168" width="72" height="24" fill="#c4433c"/>
+    <!-- arco escalonado 2 blocos: primeiro 3 largura, segundo 1 -->
+    <polygon points="-36,-168 36,-168 24,-192 -24,-192" fill="#c4433c"/>
+    <polygon points="-24,-192 24,-192 12,-216 -12,-216" fill="#c4433c"/>
+    <!-- lanterna acesa dentro -->
+    <ellipse cx="0" cy="-100" rx="20" ry="30" fill="url(#glow)"/>
+    <rect x="-8" y="-108" width="16" height="24" fill="#fff4a6"/>
+    <rect x="-4" y="-90" width="8" height="8" fill="#c4433c"/>
+
+    <text x="-180" y="-140" text-anchor="end" font-family="sans-serif" font-size="9" fill="#5a4a8a">base 12×5</text>
+
+    <!-- === COLAR BASE === Y=8 (1 alt, 11 larg) -->
+    <rect x="-132" y="-216" width="264" height="24" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+
+    <!-- === TELHADO-SAIA === Y=9-12 (4 alt, 15→13→11→9) -->
+    <!-- degrau 1 mais largo (15) -->
+    <rect x="-180" y="-240" width="360" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+    <rect x="-180" y="-240" width="24" height="24" fill="#fcfcfc" stroke="#888" stroke-width="0.3"/>
+    <rect x="156" y="-240" width="24" height="24" fill="#fcfcfc" stroke="#888" stroke-width="0.3"/>
+    <!-- degrau 2 (13) -->
+    <rect x="-156" y="-264" width="312" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+    <rect x="-156" y="-264" width="24" height="24" fill="#fcfcfc" stroke="#888" stroke-width="0.3"/>
+    <rect x="132" y="-264" width="24" height="24" fill="#fcfcfc" stroke="#888" stroke-width="0.3"/>
+    <!-- degrau 3 (11) -->
+    <rect x="-132" y="-288" width="264" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+    <rect x="-132" y="-288" width="24" height="24" fill="#fcfcfc" stroke="#888" stroke-width="0.3"/>
+    <rect x="108" y="-288" width="24" height="24" fill="#fcfcfc" stroke="#888" stroke-width="0.3"/>
+    <!-- degrau 4 (9) -->
+    <rect x="-108" y="-312" width="216" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+
+    <text x="195" y="-275" font-family="sans-serif" font-size="9" fill="#5a4a8a">saia 4 degraus 15→9</text>
+
+    <!-- === COLAR BRANCO === Y=13-14 (2 alt, 9 larg) -->
+    <rect x="-108" y="-360" width="216" height="48" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+
+    <!-- === EIXO === Y=15-27 (13 alt, 7 larg) — 4 ANDARES de 3 blocos com medalhão embaixo + anel/parede -->
+    <!-- padrão por andar (3 blocos):
+         Y+2 (topo do andar): parede branca
+         Y+1: parede branca
+         Y+0: medalhão 2x2 R + anel embaixo -->
+
+    <!-- ANDAR 1: Y=15-17 -->
+    <rect x="-84" y="-432" width="168" height="72" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <!-- medalhão Y=15 (2x2 R c/ 1x1 amarelo) -->
+    <g transform="translate(0, -384)">
+      <rect x="-24" y="-24" width="48" height="48" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-12" y="-12" width="24" height="24" fill="#f4b942"/>
+    </g>
+    <!-- anel R Y=17 topo do andar -->
+    <rect x="-84" y="-432" width="168" height="12" fill="#c4433c"/>
+
+    <!-- ANDAR 2: Y=18-20 -->
+    <rect x="-84" y="-504" width="168" height="72" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <g transform="translate(0, -456)">
+      <rect x="-24" y="-24" width="48" height="48" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-12" y="-12" width="24" height="24" fill="#f4b942"/>
+    </g>
+    <rect x="-84" y="-504" width="168" height="12" fill="#c4433c"/>
+
+    <!-- ANDAR 3: Y=21-23 -->
+    <rect x="-84" y="-576" width="168" height="72" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <g transform="translate(0, -528)">
+      <rect x="-24" y="-24" width="48" height="48" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-12" y="-12" width="24" height="24" fill="#f4b942"/>
+    </g>
+    <rect x="-84" y="-576" width="168" height="12" fill="#c4433c"/>
+
+    <!-- ANDAR 4: Y=24-27 (4 alt, o último tem topo diferente) -->
+    <rect x="-84" y="-672" width="168" height="96" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <g transform="translate(0, -624)">
+      <rect x="-24" y="-24" width="48" height="48" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+      <rect x="-12" y="-12" width="24" height="24" fill="#f4b942"/>
+    </g>
+
+    <text x="195" y="-500" font-family="sans-serif" font-size="9" fill="#5a4a8a">eixo 7×13 = 4 andares 3blocos</text>
+
+    <!-- === BEIRAL TOPO EIXO === Y=28-30 (3 alt, 8-9 larg) -->
+    <rect x="-108" y="-720" width="216" height="48" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-108" y="-720" width="24" height="48" fill="#fcfcfc" stroke="#888" stroke-width="0.4"/>
+    <rect x="84" y="-720" width="24" height="48" fill="#fcfcfc" stroke="#888" stroke-width="0.4"/>
+
+    <!-- === TELHADO CÔNICO === Y=31-34 (4 alt, 9→7→5→3) -->
+    <rect x="-108" y="-744" width="216" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+    <rect x="-84" y="-768" width="168" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+    <rect x="-60" y="-792" width="120" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+    <rect x="-36" y="-816" width="72" height="24" fill="#415920" stroke="#1a2408" stroke-width="0.3"/>
+
+    <text x="195" y="-770" font-family="sans-serif" font-size="9" fill="#5a4a8a">cônico 4 camadas 9→3</text>
+
+    <!-- === PINÁCULO === Y=35-37 -->
+    <rect x="-24" y="-840" width="48" height="24" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-12" y="-840" width="24" height="24" fill="#c4433c"/>
+    <rect x="-12" y="-864" width="24" height="24" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <line x1="0" y1="-864" x2="0" y2="-912" stroke="#888" stroke-width="2"/>
+
+    <!-- Escala Y -->
+    <g font-family="sans-serif" font-size="8" fill="#666">
+      <line x1="-220" y1="0" x2="-220" y2="-912" stroke="#888" stroke-width="0.4"/>
+      <text x="-225" y="4" text-anchor="end">Y=0</text>
+      <text x="-225" y="-116" text-anchor="end">Y=5</text>
+      <text x="-225" y="-236" text-anchor="end">Y=10</text>
+      <text x="-225" y="-356" text-anchor="end">Y=15</text>
+      <text x="-225" y="-476" text-anchor="end">Y=20</text>
+      <text x="-225" y="-596" text-anchor="end">Y=25</text>
+      <text x="-225" y="-716" text-anchor="end">Y=30</text>
+      <text x="-225" y="-836" text-anchor="end">Y=35</text>
+    </g>
+
+  </g>
+
+  <g transform="translate(20, 940)">
+    <rect x="0" y="0" width="280" height="100" fill="#ffffff" opacity="0.92" stroke="#5a4a8a" stroke-width="1" rx="6"/>
+    <text x="10" y="18" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2a1f5c">MEDIDAS EXATAS (via grade GPT)</text>
+    <text x="10" y="32" font-family="sans-serif" font-size="9" fill="#2a1f5c">• plinth: 14×2 + beiral 14×1</text>
+    <text x="10" y="44" font-family="sans-serif" font-size="9" fill="#2a1f5c">• base octog: 12×5 c/ peristilo</text>
+    <text x="10" y="56" font-family="sans-serif" font-size="9" fill="#2a1f5c">• saia 4 degraus 15→13→11→9</text>
+    <text x="10" y="68" font-family="sans-serif" font-size="9" fill="#2a1f5c">• eixo 7×13: 4 andares 3 blocos</text>
+    <text x="10" y="80" font-family="sans-serif" font-size="9" fill="#2a1f5c">• cônico 4 camadas + pináculo 3</text>
+    <text x="10" y="94" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2a1f5c">TOTAL: 38 alt × 14 base × 7 eixo</text>
+  </g>
+
+  <g transform="translate(500, 940)">
+    <rect x="0" y="0" width="280" height="100" fill="#ffffff" opacity="0.92" stroke="#5a4a8a" stroke-width="1" rx="6"/>
+    <text x="10" y="18" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2a1f5c">CONFIANÇA DAS MEDIDAS</text>
+    <text x="10" y="32" font-family="sans-serif" font-size="9" fill="#2a1f5c">✓ altura 38: confirmada por grade</text>
+    <text x="10" y="44" font-family="sans-serif" font-size="9" fill="#2a1f5c">✓ largura 14: confirmada por bbox</text>
+    <text x="10" y="56" font-family="sans-serif" font-size="9" fill="#2a1f5c">✓ eixo 7 e 4 andares: confirmados</text>
+    <text x="10" y="68" font-family="sans-serif" font-size="9" fill="#2a1f5c">? peristilo posição: aproximado</text>
+    <text x="10" y="80" font-family="sans-serif" font-size="9" fill="#2a1f5c">? octogonal: sugerido não confirmado</text>
+    <text x="10" y="94" font-family="sans-serif" font-size="9" fill="#c4433c">falta: vista topo + lateral pura</text>
+  </g>
+</svg>

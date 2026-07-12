@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700">
+  <rect width="900" height="700" fill="#f9f4e0"/>
+
+  <text x="450" y="25" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#3d2a72">CHECK-IN STATION — planta topo v4</text>
+
+  <!-- MURO EXTERNO retangular -->
+  <rect x="80" y="80" width="740" height="500" fill="none" stroke="#b02a2a" stroke-width="14"/>
+
+  <!-- 4 TORRES nos cantos (retângulo em volta do salão) -->
+  <g id="torres">
+    <!-- NW -->
+    <g transform="translate(230, 175)">
+      <polygon points="-32,-13 -13,-32 13,-32 32,-13 32,13 13,32 -13,32 -32,13" fill="#ffffff" stroke="#b02a2a" stroke-width="3"/>
+      <polygon points="-24,-9 -9,-24 9,-24 24,-9 24,9 9,24 -9,24 -24,9" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+      <circle r="4" fill="#b02a2a"/>
+    </g>
+    <!-- NE -->
+    <g transform="translate(670, 175)">
+      <polygon points="-32,-13 -13,-32 13,-32 32,-13 32,13 13,32 -13,32 -32,13" fill="#ffffff" stroke="#b02a2a" stroke-width="3"/>
+      <polygon points="-24,-9 -9,-24 9,-24 24,-9 24,9 9,24 -9,24 -24,9" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+      <circle r="4" fill="#b02a2a"/>
+    </g>
+    <!-- SW -->
+    <g transform="translate(230, 445)">
+      <polygon points="-32,-13 -13,-32 13,-32 32,-13 32,13 13,32 -13,32 -32,13" fill="#ffffff" stroke="#b02a2a" stroke-width="3"/>
+      <polygon points="-24,-9 -9,-24 9,-24 24,-9 24,9 9,24 -9,24 -24,9" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+      <circle r="4" fill="#b02a2a"/>
+    </g>
+    <!-- SE -->
+    <g transform="translate(670, 445)">
+      <polygon points="-32,-13 -13,-32 13,-32 32,-13 32,13 13,32 -13,32 -32,13" fill="#ffffff" stroke="#b02a2a" stroke-width="3"/>
+      <polygon points="-24,-9 -9,-24 9,-24 24,-9 24,9 9,24 -9,24 -24,9" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+      <circle r="4" fill="#b02a2a"/>
+    </g>
+  </g>
+
+  <!-- SALÃO CENTRAL — pagode -->
+  <g id="salao" transform="translate(450, 310)">
+    <!-- andar 1 (base larga que se estende pros lados) -->
+    <rect x="-100" y="-70" width="200" height="140" fill="#3d7a2f" stroke="#b02a2a" stroke-width="3"/>
+    <!-- janelas circulares na frente -->
+    <circle cx="-50" cy="60" r="6" fill="#e88b3a" stroke="#b02a2a" stroke-width="1"/>
+    <circle cx="0" cy="60" r="6" fill="#e88b3a" stroke="#b02a2a" stroke-width="1"/>
+    <circle cx="50" cy="60" r="6" fill="#e88b3a" stroke="#b02a2a" stroke-width="1"/>
+    <!-- andar 2 -->
+    <rect x="-60" y="-50" width="120" height="100" fill="#4a8a3a" stroke="#b02a2a" stroke-width="2"/>
+    <!-- andar 3 -->
+    <rect x="-35" y="-30" width="70" height="60" fill="#5aa04a" stroke="#b02a2a" stroke-width="2"/>
+    <!-- chifres brancos -->
+    <polygon points="-28,-10 -20,-40 -12,-10" fill="#ffffff" stroke="#666" stroke-width="1"/>
+    <polygon points="12,-10 20,-40 28,-10" fill="#ffffff" stroke="#666" stroke-width="1"/>
+    <!-- esfera vermelha topo -->
+    <circle cx="0" cy="0" r="7" fill="#b02a2a"/>
+    <!-- escada frontal (sul) -->
+    <rect x="-15" y="70" width="30" height="18" fill="#b02a2a"/>
+  </g>
+
+  <!-- CORREDORES: passam POR CIMA das torres, indo do salão até portões E/O -->
+  <g id="corredores">
+    <!-- oeste: sai do salão, passa pela torre SW/NW, chega no portão do muro -->
+    <rect x="80" y="295" width="270" height="30" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+    <!-- pilares vermelhos embaixo -->
+    <line x1="130" y1="325" x2="130" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <line x1="180" y1="325" x2="180" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <line x1="230" y1="325" x2="230" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <line x1="280" y1="325" x2="280" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <!-- portão OESTE (saindo do muro) -->
+    <rect x="55" y="275" width="55" height="70" fill="#ffffff" stroke="#b02a2a" stroke-width="3"/>
+    <polygon points="48,280 82,255 116,280" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+
+    <!-- leste -->
+    <rect x="550" y="295" width="270" height="30" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+    <line x1="600" y1="325" x2="600" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <line x1="650" y1="325" x2="650" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <line x1="700" y1="325" x2="700" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <line x1="750" y1="325" x2="750" y2="380" stroke="#b02a2a" stroke-width="3"/>
+    <!-- portão LESTE -->
+    <rect x="790" y="275" width="55" height="70" fill="#ffffff" stroke="#b02a2a" stroke-width="3"/>
+    <polygon points="784,280 818,255 852,280" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+  </g>
+
+  <!-- PORTÃO WELCOME frontal (fora do muro, conectado por passagem curta) -->
+  <g id="welcome" transform="translate(450, 590)">
+    <!-- 2 abas laterais -->
+    <rect x="-120" y="0" width="40" height="55" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+    <rect x="80" y="0" width="40" height="55" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+    <!-- estrutura central -->
+    <rect x="-80" y="-10" width="160" height="65" fill="#ffffff" stroke="#b02a2a" stroke-width="3"/>
+    <!-- telhado principal em pagode com beirais -->
+    <polygon points="-100,-10 -80,-38 80,-38 100,-10" fill="#3d7a2f" stroke="#b02a2a" stroke-width="2"/>
+    <!-- placa WEL COME -->
+    <rect x="-42" y="10" width="84" height="22" fill="#ffffff" stroke="#111" stroke-width="1"/>
+    <text x="0" y="26" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#111">WEL COME</text>
+    <!-- abertura -->
+    <rect x="-15" y="40" width="30" height="15" fill="#b02a2a"/>
+  </g>
+
+  <!-- passagem do WELCOME atravessando o muro (curta) -->
+  <rect x="440" y="575" width="20" height="10" fill="#5aa04a" stroke="#b02a2a" stroke-width="1"/>
+
+  <!-- CAMINHO longo saindo -->
+  <g>
+    <rect x="425" y="645" width="6" height="45" fill="#b02a2a"/>
+    <rect x="469" y="645" width="6" height="45" fill="#b02a2a"/>
+    <rect x="431" y="645" width="38" height="45" fill="#5aa04a"/>
+  </g>
+
+  <!-- rosa dos ventos -->
+  <g transform="translate(850, 60)">
+    <circle r="20" fill="#ffffff" opacity="0.8" stroke="#3d2a72" stroke-width="1"/>
+    <polygon points="0,-16 -4,0 0,16 4,0" fill="#3d2a72"/>
+    <text y="-4" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#3d2a72">N</text>
+  </g>
+
+  <!-- LABELS -->
+  <g font-family="sans-serif" font-size="9" fill="#3d2a72" font-weight="bold">
+    <text x="230" y="230" text-anchor="middle">TORRE NO</text>
+    <text x="670" y="230" text-anchor="middle">TORRE NE</text>
+    <text x="230" y="500" text-anchor="middle">TORRE SO</text>
+    <text x="670" y="500" text-anchor="middle">TORRE SE</text>
+    <text x="450" y="325" text-anchor="middle" fill="#ffffff">SALÃO</text>
+  </g>
+
+  <!-- LEGENDA v4 -->
+  <g transform="translate(30, 620)">
+    <rect x="0" y="0" width="280" height="70" fill="#ffffff" opacity="0.9" stroke="#3d2a72" stroke-width="1" rx="6"/>
+    <text x="10" y="16" font-family="sans-serif" font-size="10" font-weight="bold" fill="#3d2a72">correções em v4:</text>
+    <text x="10" y="30" font-family="sans-serif" font-size="9" fill="#3d2a72">✗ removi muro interno (não existe no canon)</text>
+    <text x="10" y="42" font-family="sans-serif" font-size="9" fill="#3d2a72">✗ removi escadas das torres (não existe)</text>
+    <text x="10" y="54" font-family="sans-serif" font-size="9" fill="#3d2a72">✓ torres alinhadas nos 4 cantos formando retângulo</text>
+    <text x="10" y="66" font-family="sans-serif" font-size="9" fill="#3d2a72">✓ salão com base larga (1º andar se estende lateralmente)</text>
+  </g>
+</svg>

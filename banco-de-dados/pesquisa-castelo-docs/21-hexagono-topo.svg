@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Como aproximar hexágono em Minecraft — vista de cima -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <pattern id="grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="none" stroke="#00000020" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="600" fill="#f0e8d0"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+
+  <text x="400" y="25" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2a1f5c">HEXÁGONO em Minecraft — vista de cima</text>
+  <text x="400" y="45" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5a4a8a">3 tamanhos possíveis pra torre. cada quadrado = 1 bloco</text>
+
+  <!-- HEXÁGONO PEQUENO (face 5, largura total 7) — provavelmente o eixo -->
+  <g transform="translate(150, 300)">
+    <text x="0" y="-140" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2a1f5c">eixo</text>
+    <text x="0" y="-120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5a4a8a">face=5, total=7×7</text>
+    <!-- gerando hexágono aproximado: 
+         Y=0 face norte: 5 blocos (X=-2 a +2)
+         Y=1 chamfer: 6 blocos (X=-2 a +3, na verdade -3 a +2 shifting)
+         ...vou plotar com Python -->
+    <!-- Blocos: manual - hexágono com raio 3 -->
+    <!-- linha Y=-3: 5 blocos centro -->
+    <rect x="-60" y="-90" width="120" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=-2: 7 blocos -->
+    <rect x="-90" y="-60" width="180" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=-1: 7 blocos -->
+    <rect x="-90" y="-30" width="180" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=0: 7 blocos -->
+    <rect x="-90" y="0" width="180" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=1: 7 blocos -->
+    <rect x="-90" y="30" width="180" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=2: 5 blocos centro -->
+    <rect x="-60" y="60" width="120" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+
+    <!-- pilares R nas 6 quinas (aproximadamente) -->
+    <rect x="-60" y="-90" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="30" y="-90" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="-90" y="-30" width="30" height="60" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="60" y="-30" width="30" height="60" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="-60" y="60" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="30" y="60" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+
+    <!-- centro oco (parede interna, chão em quartz) -->
+    <rect x="-60" y="-60" width="120" height="120" fill="#f4f4f4" stroke="#888" stroke-width="0.3" stroke-dasharray="3,3"/>
+    <text x="0" y="5" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">interior</text>
+
+    <!-- indicador de "face frontal" (norte) -->
+    <line x1="-60" y1="-100" x2="60" y2="-100" stroke="#2a1f5c" stroke-width="2"/>
+    <text x="0" y="-108" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2a1f5c">FRENTE 5 blocos</text>
+
+    <text x="0" y="120" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5a4a8a">6 pilares R nas quinas • interior 5×5</text>
+  </g>
+
+  <!-- HEXÁGONO MÉDIO (face 7, largura total 9) — provavelmente eixo maior -->
+  <g transform="translate(400, 300)">
+    <text x="0" y="-170" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2a1f5c">eixo grande</text>
+    <text x="0" y="-150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5a4a8a">face=7, total=9×9</text>
+
+    <!-- linha Y=-4: 5 blocos -->
+    <rect x="-60" y="-120" width="120" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=-3: 7 blocos -->
+    <rect x="-90" y="-90" width="180" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=-2: 9 blocos -->
+    <rect x="-120" y="-60" width="240" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=-1: 9 blocos -->
+    <rect x="-120" y="-30" width="240" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=0: 9 blocos -->
+    <rect x="-120" y="0" width="240" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=1: 9 blocos -->
+    <rect x="-120" y="30" width="240" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=2: 9 blocos -->
+    <rect x="-120" y="60" width="240" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=3: 7 blocos -->
+    <rect x="-90" y="90" width="180" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+    <!-- linha Y=4: 5 blocos -->
+    <rect x="-60" y="120" width="120" height="30" fill="#fcfcfc" stroke="#666" stroke-width="0.4"/>
+
+    <!-- pilares R nas 6 quinas -->
+    <rect x="-60" y="-120" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="30" y="-120" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="-120" y="-30" width="30" height="60" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="90" y="-30" width="30" height="60" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="-60" y="120" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+    <rect x="30" y="120" width="30" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.4"/>
+
+    <rect x="-90" y="-90" width="180" height="180" fill="#f4f4f4" stroke="#888" stroke-width="0.3" stroke-dasharray="3,3"/>
+    <text x="0" y="5" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">interior 7×7</text>
+
+    <line x1="-90" y1="-130" x2="90" y2="-130" stroke="#2a1f5c" stroke-width="2"/>
+    <text x="0" y="-138" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2a1f5c">FRENTE 7 blocos</text>
+  </g>
+
+  <!-- HEXÁGONO GRANDE (face 9, largura total 12) — a BASE da torre com peristilo -->
+  <g transform="translate(680, 300)">
+    <text x="0" y="-190" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2a1f5c">base c/ peristilo</text>
+    <text x="0" y="-170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5a4a8a">face=9, total=12×12</text>
+
+    <!-- Hexágono maior: raio 5, face 9 -->
+    <rect x="-90" y="-135" width="180" height="15" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-105" y="-120" width="210" height="15" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-135" y="-105" width="270" height="15" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-150" y="-90" width="300" height="180" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-135" y="90" width="270" height="15" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-105" y="105" width="210" height="15" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+    <rect x="-90" y="120" width="180" height="15" fill="#fcfcfc" stroke="#666" stroke-width="0.3"/>
+
+    <!-- 6 pilares grandes -->
+    <rect x="-90" y="-135" width="15" height="15" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+    <rect x="75" y="-135" width="15" height="15" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+    <rect x="-150" y="-15" width="15" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+    <rect x="135" y="-15" width="15" height="30" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+    <rect x="-90" y="120" width="15" height="15" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+    <rect x="75" y="120" width="15" height="15" fill="#c4433c" stroke="#5a1a17" stroke-width="0.3"/>
+
+    <!-- 6 pilaretes internos peristilo (mais próximos do centro) -->
+    <rect x="-70" y="-100" width="8" height="8" fill="#c4433c"/>
+    <rect x="62" y="-100" width="8" height="8" fill="#c4433c"/>
+    <rect x="-110" y="0" width="8" height="20" fill="#c4433c"/>
+    <rect x="102" y="0" width="8" height="20" fill="#c4433c"/>
+    <rect x="-70" y="92" width="8" height="8" fill="#c4433c"/>
+    <rect x="62" y="92" width="8" height="8" fill="#c4433c"/>
+
+    <!-- porta central (na face frontal, norte) -->
+    <rect x="-25" y="-140" width="50" height="15" fill="#3d2818" stroke="#c4433c" stroke-width="2"/>
+    <text x="0" y="-130" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">PORTA</text>
+
+    <rect x="-105" y="-90" width="210" height="180" fill="#f4f4f4" stroke="#888" stroke-width="0.3" stroke-dasharray="3,3"/>
+    <text x="0" y="5" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">interior</text>
+
+    <line x1="-90" y1="-145" x2="90" y2="-145" stroke="#2a1f5c" stroke-width="2"/>
+    <text x="0" y="-153" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2a1f5c">FRENTE 9 blocos (c/ porta)</text>
+  </g>
+
+  <!-- Legenda -->
+  <g transform="translate(30, 500)">
+    <rect x="0" y="0" width="740" height="85" fill="#ffffff" opacity="0.92" stroke="#5a4a8a" stroke-width="1" rx="6"/>
+    <text x="10" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2a1f5c">COMO SE APROXIMA HEXÁGONO EM MINECRAFT</text>
+    <text x="10" y="38" font-family="sans-serif" font-size="10" fill="#2a1f5c">• Hexágono regular em MC: face frontal N blocos, depois "chamfer" oblíquo com blocos escalonados</text>
+    <text x="10" y="52" font-family="sans-serif" font-size="10" fill="#2a1f5c">• Padrão: linhas de largura variável (5→7→9→...→9→7→5) formando o formato de "moeda" hexagonal</text>
+    <text x="10" y="66" font-family="sans-serif" font-size="10" fill="#2a1f5c">• 6 pilares vermelhos nas quinas (arestas do hexágono) — 4 visíveis por vez</text>
+    <text x="10" y="80" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c4433c">✓ CORREÇÃO: torre é HEXÁGONO, não octógono como eu tinha assumido!</text>
+  </g>
+</svg>

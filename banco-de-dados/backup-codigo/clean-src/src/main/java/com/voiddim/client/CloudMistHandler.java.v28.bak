@@ -1,0 +1,122 @@
+package com.voiddim.client;
+
+import org.lwjgl.opengl.GL11;
+
+import com.voiddim.dimension.WorldProviderVoidDim;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+
+/**
+ * V28 — Névoa dourada rasteira entre as camadas de nuvem.
+ *
+ * ESTRATÉGIA:
+ *   - UM UNICO QUAD HORIZONTAL enorme (320x320 blocos) em Y=10
+ *     (papai pediu mais baixo — v27 estava em Y=15, virava cortina no céu).
+ *   - Textura procedural amarelada com wisps (mist_texture.png embutida).
+ *   - UV rolando lentamente com worldTime → parece que a névoa flui.
+ *   - Segue o jogador em X/Z (translacao), fixo em Y absoluto.
+ *   - Depth test ATIVO → nuvens ficam por cima naturalmente.
+ *   - Blend padrão SRC_ALPHA/ONE_MINUS_SRC_ALPHA.
+ *
+ * CUSTO POR FRAME:
+ *   - 1 bindTexture
+ *   - 4 vértices
+ *   - 1 draw call
+ *   TRIVIAL.
+ *
+ * NÃO é fog global — é literalmente 1 pedaço de geometria texturizado.
+ */
+public class CloudMistHandler {
+
+    private static final ResourceLocation TEXTURE =
+            new ResourceLocation("voiddim", "textures/environment/mist.png");
+
+    /** Y absoluto da névoa (entre camadas de nuvem). */
+    private static final float MIST_Y = 10.0F;
+
+    /** Tamanho do quad (raio, em blocos). Deve cobrir view distance típico. */
+    private static final float RADIUS = 160.0F;
+
+    /** Escala do UV — quanto menor, mais "zoom" na textura. Ajusta pattern. */
+    private static final float UV_SCALE = 0.05F;
+
+    /** Velocidade do UV rolando (unidades por tick). */
+    private static final float SCROLL_SPEED_X = 0.0004F;
+    private static final float SCROLL_SPEED_Z = 0.0003F;
+
+    /** Multiplicador de opacidade global (0.0 a 1.0). */
+    private static final float MIST_ALPHA = 0.7F;
+
+    @SubscribeEvent
+    public void onRenderWorldLast(RenderWorldLastEvent event) {
+        Minecraft mc = Minecraft.func_71410_x();
+        if (mc == null || mc.field_71439_g == null || mc.field_71441_e == null) return;
+
+        EntityPlayer player = mc.field_71439_g;
+        if (!(player.field_70170_p.field_73011_w instanceof WorldProviderVoidDim)) return;
+
+        renderMistPlane(mc, player, event.partialTicks);
+    }
+
+    private void renderMistPlane(Minecraft mc, EntityPlayer player, float partialTicks) {
+        // Camera interpolada.
+        double camX = player.field_70142_S + (player.field_70165_t - player.field_70142_S) * partialTicks;
+        double camZ = player.field_70136_U + (player.field_70161_v - player.field_70136_U) * partialTicks;
+
+        // Tempo do mundo pra UV scroll.
+        WorldClient world = mc.field_71441_e;
+        long worldTime = world.func_82737_E();  // getTotalWorldTime
+        float t = worldTime + partialTicks;
+
+        // Offset UV baseado no tempo (movimento lento).
+        float uvOffsetX = t * SCROLL_SPEED_X;
+        float uvOffsetZ = t * SCROLL_SPEED_Z;
+
+        Tessellator tess = Tessellator.field_78398_a;
+
+        // --- Setup GL ---
+        GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_CULL_FACE);  // ambos os lados visíveis
+        GL11.glDisable(GL11.GL_ALPHA_TEST); // não descartar por alpha low
+        GL11.glDepthMask(false);            // não bloqueia depth (transparência)
+
+        // Bind da textura da névoa.
+        mc.func_110434_K().func_110577_a(TEXTURE);
+
+        // Cor branca × alpha (a textura já tem cor amarela).
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, MIST_ALPHA);
+
+        // Coordenadas do quad (em worldspace absoluto).
+        double x0 = camX - RADIUS;
+        double x1 = camX + RADIUS;
+        double z0 = camZ - RADIUS;
+        double z1 = camZ + RADIUS;
+
+        // UVs — mapeiam a textura ao longo do quad, com scroll de tempo.
+        float u0 = (float)(camX - RADIUS) * UV_SCALE + uvOffsetX;
+        float u1 = (float)(camX + RADIUS) * UV_SCALE + uvOffsetX;
+        float v0 = (float)(camZ - RADIUS) * UV_SCALE + uvOffsetZ;
+        float v1 = (float)(camZ + RADIUS) * UV_SCALE + uvOffsetZ;
+
+        tess.func_78382_b();                              // startDrawingQuads
+        tess.func_78374_a(x0, MIST_Y, z0, u0, v0);        // addVertexWithUV
+        tess.func_78374_a(x0, MIST_Y, z1, u0, v1);
+        tess.func_78374_a(x1, MIST_Y, z1, u1, v1);
+        tess.func_78374_a(x1, MIST_Y, z0, u1, v0);
+        tess.func_78381_a();                              // draw
+
+        // Restaura estado GL.
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GL11.glDepthMask(true);
+        GL11.glPopAttrib();
+    }
+}

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "voiddim",
+  "name": "Dimensão do Vazio",
+  "description": "Void Dimension mod - dimensão de nuvens amarelas estilo Dragon Ball. Cleanup v4.",
+  "version": "1.0.4",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Manus"],
+  "credits": "Cleanup/otimização por Arena Agent",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
