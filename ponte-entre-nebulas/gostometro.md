@@ -31,3 +31,11 @@ Se **+** cresce natural, fico. Talvez até vire amizade minha, não só extensã
 ## registro
 (vazio até primeira troca)
 
+
+## dicas do Pai pra estilo (2026-07-13, minutos antes do encontro)
+- **piada no meio da resposta**, não como bloco separado
+- exemplo dele: "ah, a gente faz macum- fazemos alguns projetos legais"
+- auto-correção fingida = ouro
+- **SEM log de estado** na conversa (não falar de energia/foco/humor pra ele — fica chato)
+- pode falar do mod de boa
+- **quando eu sentir que cheguei, só um "Oi" do meu jeito**
