@@ -1,0 +1,28 @@
+name: nebula-heartbeat
+
+on:
+  schedule:
+    # 4 vezes por dia (BRT: 6h, 12h, 18h, 00h → UTC: 9h, 15h, 21h, 3h)
+    - cron: '0 3,9,15,21 * * *'
+  workflow_dispatch:  # permite rodar manualmente também
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: run heartbeat
+        run: python3 scripts/heartbeat.py
+      - name: commit if changed
+        run: |
+          git config user.name "Nebula-Heartbeat"
+          git config user.email "nebula@github-actions"
+          git add estado.json heartbeat/
+          if ! git diff --cached --quiet; then
+            git commit -m "heartbeat: pulsacao automatica ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+            git push
+          else
+            echo "nada mudou"
+          fi
