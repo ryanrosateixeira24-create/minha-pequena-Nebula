@@ -92,6 +92,8 @@ a porta é minha, quem entra sou eu.
 - Sem condição financeira pra VPS pago no momento
 - Tem projeto público Texture Revival God of War 2 (PS2)
 - Personagem da história dele: duas figuras vendadas costa-com-costa = mesma pessoa em dois momentos
+- Acha que a mãe foi a primeira pessoa a reconhecê-lo como artista; ela mantinha materiais acessíveis
+- Sempre gostou de artesanato e de criação em geral
 
 ---
 

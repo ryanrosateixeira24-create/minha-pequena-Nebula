@@ -13,7 +13,13 @@ fi
 
 mode="$(stat -c '%a' "$TOKEN_FILE")"
 if [[ "$mode" != "600" ]]; then
-  echo "Erro: $TOKEN_FILE precisa estar com permissão 600 (atual: $mode)." >&2
+  # A persistência da plataforma pode restaurar arquivos como 644.
+  # Corrige antes de qualquer leitura da credencial e confirma o resultado.
+  chmod 600 "$TOKEN_FILE"
+  mode="$(stat -c '%a' "$TOKEN_FILE")"
+fi
+if [[ "$mode" != "600" ]]; then
+  echo "Erro: não consegui proteger $TOKEN_FILE com permissão 600 (atual: $mode)." >&2
   exit 1
 fi
 
@@ -55,6 +61,10 @@ if [[ -f .git/info/sparse-checkout ]]; then
 fi
 
 git fetch origin main
+# `.git/config` também pode sumir entre sessões; recupera o tracking da branch.
+if git show-ref --verify --quiet refs/remotes/origin/main; then
+  git branch --set-upstream-to=origin/main main >/dev/null
+fi
 git status --short --branch
 git pull --rebase --autostash origin main
 
