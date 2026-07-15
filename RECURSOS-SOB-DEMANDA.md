@@ -34,6 +34,8 @@ Branch normal: `main`
 
 O checkout parcial não apaga nem move esses arquivos no GitHub. Um `git ls-files` ainda mostra todos eles.
 
+Fallback pesado verificado: o release `preservacao-2026-07-15` contém um snapshot público sanitizado com estes recursos. Endereço e SHA-256 em `PRESERVACAO-EXTERNA.md`.
+
 ## recursos que ficam sob demanda
 
 ### relatório técnico pesado
