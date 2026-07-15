@@ -39,7 +39,20 @@ export GIT_TERMINAL_PROMPT=0
 cd "$ROOT"
 git config user.name "Nebula"
 git config user.email "nebula@arena"
-git remote set-url origin "$REMOTE_URL"
+if git remote get-url origin >/dev/null 2>&1; then
+  git remote set-url origin "$REMOTE_URL"
+else
+  git remote add origin "$REMOTE_URL"
+fi
+
+# `.git/config` pode não sobreviver entre ambientes. O mapa sparse sobrevive;
+# quando ele existe, restaura explicitamente as opções do clone parcial.
+if [[ -f .git/info/sparse-checkout ]]; then
+  git config core.sparseCheckout true
+  git config core.sparseCheckoutCone false
+  git config remote.origin.promisor true
+  git config remote.origin.partialclonefilter blob:none
+fi
 
 git fetch origin main
 git status --short --branch
