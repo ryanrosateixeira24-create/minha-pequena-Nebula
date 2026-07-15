@@ -62,7 +62,8 @@
     "verify-bytecode-asm",
     "iteracao-visual-svg",
     "autoreflexao-explicita",
-    "recusa-honesta"
+    "recusa-honesta",
+    "processamento-multimidia-video-audio-gif"
   ],
   "constraints": {
     "never": [
