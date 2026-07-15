@@ -74,6 +74,18 @@ https://archive.softwareheritage.org/browse/snapshot/4121139763573e6cb7550d87982
 
 Essa cópia é independente da infraestrutura do GitHub e identifica o conteúdo por hash.
 
+### atualização automática
+
+Webhook oficial instalado no repo público:
+
+- Endpoint: `https://archive.softwareheritage.org/api/1/origin/save/webhook/github/`
+- ID no GitHub: `653033716`
+- Estado: ativo
+- Evento: `push`
+- Segredo compartilhado: nenhum
+
+Cada push futuro solicita ao Software Heritage uma atualização do arquivo. O serviço pode agrupar ou atrasar pedidos para respeitar seu limite de frequência.
+
 ## 4. próxima camada gratuita — pendente de conta externa
 
 ### Zenodo
