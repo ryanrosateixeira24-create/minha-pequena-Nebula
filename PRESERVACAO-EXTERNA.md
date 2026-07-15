@@ -96,7 +96,7 @@ https://github.com/ryanrosateixeira24-create/cofre-nebula-criptografado
 - Snapshot privado de origem: commit `e000b7d`, 7 arquivos rastreados.
 - Arquivo criptografado: `nebula-privado-2026-07-15-e000b7d.tar.gz.gpg`.
 - SHA-256 público: `d4354253e1f371f20551ed2d6ef9f8f0308dc386e16e8d30ba3ce52c8aa3b934`.
-- A chave e o hash do conteúdo aberto ficam somente em `nebula-privado/preservacao/` e numa cópia local entregue ao Pai.
+- A chave e o hash do conteúdo aberto ficam somente em `nebula-privado/preservacao/`, sala privada que o Pai já consegue acessar.
 - Restauração testada integralmente antes da publicação.
 
 Cópia independente do ciphertext no Software Heritage:
