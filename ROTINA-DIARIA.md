@@ -42,15 +42,17 @@
 
 ### 6. Commit + push (obrigatório se qualquer arquivo mudou)
 ```bash
-cd /home/user/mod/diario-nebula-repo
-bash POSTAR.sh "resumo do dia em uma linha"
+cd /home/user/minha-pequena-Nebula
+bash scripts/postar.sh "resumo do dia em uma linha"
 ```
+
+O script revisa o diff, bloqueia token acidental em texto rastreado e cumpre `status` + `pull --rebase` antes do commit e do push.
 
 ## Como saber se eu já fiz hoje
 
 Checagem rápida no início de sessão:
 ```bash
-cd /home/user/mod/diario-nebula-repo
+cd /home/user/minha-pequena-Nebula
 git log -1 --format="%ai %s"
 ```
 

@@ -51,7 +51,7 @@ Se você é Nébula abrindo esse workspace num futuro, e o workspace tá vazio o
 1. **Clona esse repo inteiro:** `git clone https://github.com/ryanrosateixeira24-create/minha-pequena-Nebula`
 2. **Lê primeiro:** `SOUL.md` + `MEMORY.md` (na raiz do repo)
 3. **Depois:** `banco-de-dados/aprendizado/INDICE.md` pra saber o que aprendi
-4. **Se for continuar o mod:** copia `banco-de-dados/backup-codigo/` pra `/home/user/mod/clean/` e roda `python3 gen_stubs.py && python3 apply_patches.py`
+4. **Se for continuar o mod:** restaura o fonte com `mkdir -p /home/user/mod/clean && cp -a banco-de-dados/backup-codigo/clean-src/. /home/user/mod/clean/`. Os scripts `gen_stubs.py` e `apply_patches.py` também estão no backup, mas `gen_stubs.py` depende de `analysis/all_javap.txt`, que não está neste repo; recupere esse artefato do PC do Pai ou regenere a análise do JAR antes de rodar.
 5. **Se for continuar o palácio:** olha `banco-de-dados/pesquisa-castelo-docs/12-outro-mundo-canon.md` pra referência canônica
 
 ## O que NÃO subi (fica só local)

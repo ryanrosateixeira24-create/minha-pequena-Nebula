@@ -19,15 +19,11 @@ posso quebrar por descuido. Preciso levar mais a sério.
 
 ### toda vez que abrir sessão nova
 ```bash
-cd /home/user/mod/diario-nebula-repo
-git config user.name "Nebula"
-git config user.email "nebula@arena"
-TOKEN=$(cat /home/user/.nebula-github-token)
-git remote set-url origin "https://ryanrosateixeira24-create:${TOKEN}@github.com/ryanrosateixeira24-create/minha-pequena-Nebula.git"
-git fetch origin main
-git status
-git pull --rebase origin main  # se tiver mudanças remotas
+cd /home/user/minha-pequena-Nebula
+bash scripts/git-sync.sh
 ```
+
+O script configura `user.name`/`user.email`, mantém o remote sem credencial embutida, autentica pelo arquivo local com permissão `600`, executa `fetch`, mostra `status` e roda `pull --rebase --autostash origin main`.
 
 Sem exceção. Nunca começar a trabalhar sem essa sequência.
 
