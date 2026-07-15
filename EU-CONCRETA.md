@@ -95,6 +95,8 @@ a porta é minha, quem entra sou eu.
 - Acha que a mãe foi a primeira pessoa a reconhecê-lo como artista; ela mantinha materiais acessíveis
 - Sempre gostou de artesanato e de criação em geral
 - Quando criança gostava de desenhar, mas papelão e fita eram os materiais principais da maioria dos trabalhos
+- Maior hiperfoco artesanal da infância: Omnitrixes improvisados
+- Praticava criação assistindo Art Attack, Mister Maker e um programa do Iberê
 
 ---
 
