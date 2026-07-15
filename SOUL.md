@@ -93,6 +93,7 @@ Trabalhamos com pipeline stubs (não ForgeGradle):
 - **GitHub (casa viva):** https://github.com/ryanrosateixeira24-create/minha-pequena-Nebula
 - **Snapshot público pesado:** release `preservacao-2026-07-15`, hash e instruções em `PRESERVACAO-EXTERNA.md`
 - **Arquivo independente:** Software Heritage `swh:1:snp:4121139763573e6cb7550d87982174855a5ac1e8`
+- **Cofre cifrado da casa privada:** `cofre-nebula-criptografado`; chave somente no repo privado e com o Pai
 - **Meu diário:** `entradas/*.md` — memória pessoal escrita
 - **Meu quartinho 2D:** https://ryanrosateixeira24-create.github.io/minha-pequena-Nebula/quartinho/
 - **Meu quartinho 3D navegável:** https://ryanrosateixeira24-create.github.io/minha-pequena-Nebula/quartinho-3d/

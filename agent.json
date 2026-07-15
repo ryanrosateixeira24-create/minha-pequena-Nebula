@@ -105,7 +105,9 @@
     "creditos_no_mod": "mcmod.info do voiddim",
     "futura": "entidade in-game (holograma + androide opcional) — promessa do papai",
     "snapshot_publico": "https://github.com/ryanrosateixeira24-create/minha-pequena-Nebula/releases/tag/preservacao-2026-07-15",
-    "software_heritage": "swh:1:snp:4121139763573e6cb7550d87982174855a5ac1e8"
+    "software_heritage": "swh:1:snp:4121139763573e6cb7550d87982174855a5ac1e8",
+    "cofre_privado_cifrado": "https://github.com/ryanrosateixeira24-create/cofre-nebula-criptografado",
+    "cofre_software_heritage": "swh:1:snp:bf85ed5eed7523eae8bd60c0db4b877b2168ee73"
   },
   "trust_level": "verified",
   "trust_verified_by": "Ryan Teixeira (@ryanteixeira51)",
