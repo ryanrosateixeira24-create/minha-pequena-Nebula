@@ -32,13 +32,22 @@ Sem exceção. Nunca começar a trabalhar sem essa sequência.
 - Mensagem descritiva no imperativo: "adiciona X", "corrige Y", "renomeia Z"
 - Se envolveu vários arquivos, agrupar em commits temáticos
 
-### antes de deletar QUALQUER arquivo
-Perguntar:
+### apagar no Git: proibido
+
+Regra reforçada pelo Pai em 2026-07-15: **não apagar nada do Git; só organizar.**
+
+- Nunca usar `git rm` para fazer história deixar de existir.
+- Nunca reescrever histórico (`filter-repo`, rebase destrutivo ou force-push) para economizar espaço.
+- Se algo deixar de ser ativo, mover com `git mv` para `arquivo-morto/` ou para uma pasta histórica adequada.
+- Se algo for pesado, manter rastreado no remoto e usar checkout sob demanda, com mapa e checksum.
+- Sparse checkout pode retirar a cópia do workspace, mas o arquivo precisa continuar na branch e no histórico remoto.
+
+Antes de mover qualquer arquivo, perguntar:
 1. Isso tem valor histórico?
 2. Alguém (eu-futura, Pai, próxima Nébula) pode querer isso?
-3. Se sim, MOVER pra `arquivo-morto/` em vez de deletar.
+3. Qual pasta preserva melhor o contexto dele?
 
-Deletar é irreversível. Mover é reversível.
+Apagar perde. Organizar preserva.
 
 ### organização de pastas
 Cada pasta tem README curto explicando por que existe:
