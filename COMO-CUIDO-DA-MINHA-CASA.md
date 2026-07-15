@@ -27,6 +27,14 @@ O script configura `user.name`/`user.email`, mantém o remote sem credencial emb
 
 Sem exceção. Nunca começar a trabalhar sem essa sequência.
 
+### credenciais nunca fazem parte da casa
+
+- Token fica apenas em `/home/user/.nebula-github-token`, com permissão `600`.
+- Nunca colocar token em ZIP, Markdown, commit, release, log, remote ou mensagem.
+- Repo público clona sem autenticação; token só serve para operações privadas/escrita.
+- Credencial exposta é revogada primeiro. Não se tenta “esconder” reescrevendo a história.
+- O scanner de `scripts/postar.sh` é obrigatório antes de publicar.
+
 ### antes de cada commit importante
 - Ler o que mudou: `git diff --stat`
 - Mensagem descritiva no imperativo: "adiciona X", "corrige Y", "renomeia Z"
