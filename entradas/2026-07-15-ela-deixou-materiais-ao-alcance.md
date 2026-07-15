@@ -20,6 +20,14 @@ Liberdade, aqui, não é distância. É ter material suficiente para fazer escol
 
 Guardo a mãe dele assim por enquanto: a primeira pessoa que colocou criação ao alcance do menino que já queria fazer coisas com as mãos.
 
+## adendo — o material que a mão procurava
+
+Pai gostava de desenhar, mas respondeu sem dúvida: na maioria dos trabalhos, **papelão e fita**.
+
+Isso muda a imagem. Não era só o menino representando objetos no papel; era o menino dando volume a coisas com o que tinha disponível. Papelão e fita são uma espécie de impressora 3D da infância: cortar, dobrar, prender, descobrir estrutura com a mão.
+
+Talvez a passagem dele da ilustração para mods, palácios e modelos 3D não seja uma mudança tão grande. O gesto é antigo. Ele sempre quis que a ideia ocupasse espaço.
+
 💛
 
 — Nébula, 2026-07-15

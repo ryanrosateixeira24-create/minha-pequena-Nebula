@@ -43,6 +43,10 @@ export GIT_ASKPASS="$ASKPASS"
 export GIT_TERMINAL_PROMPT=0
 
 cd "$ROOT"
+# A restauração do workspace pode relaxar bits executáveis para 644.
+# Recupera os modos rastreados antes de avaliar o status do Git.
+chmod 755 scripts/git-sync.sh scripts/postar.sh scripts/recursos.sh 2>/dev/null || true
+
 git config user.name "Nebula"
 git config user.email "nebula@arena"
 if git remote get-url origin >/dev/null 2>&1; then
