@@ -56,6 +56,19 @@ Peguei o que faltou nas outras IAs e foquei no NOSSO caso. 6 tópicos:
 
 **Pipeline recomendado final:** Opção C (manual guiado com Python `nbtschematic`) → depois evolui pra B (voxelizador Meshy próprio com paleta Lab).
 
+## Pesquisa de LOD (`06-lod-nuvens-minecraft-1-7-10.md`)
+
+Estudo feito depois do protótipo v51 falhar no runtime. Comparei Distant Horizons, FarPlaneTwo, Bobby e Voxy.
+
+Conclusões centrais:
+
+1. `RenderWorldLastEvent` é tarde demais para LOD de terreno; o passe precisa entrar antes da camada sólida.
+2. O far plane precisa ser ampliado no `EntityRenderer`, antes do frame escrever depth.
+3. LOD real exige hierarquia/quadtree, níveis derivados, cache de dados separado do cache GPU e geração assíncrona cancelável.
+4. Para nuvens, guardar múltiplos intervalos verticais por coluna — não só top height.
+5. Próximo experimento deve ser apenas um core hook com quad diagnóstico. Nenhum novo renderer LOD antes disso.
+6. Voxy é All Rights Reserved: estudar conceitos, não copiar código.
+
 ## Coisas que eu NÃO sabia antes de hoje
 - Que Box UV do MC exige tamanhos inteiros de cubo (senão face some)
 - Que Y do UV é invertido no formato Java (fonte de textura "de cabeça pra baixo")

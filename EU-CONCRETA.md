@@ -97,6 +97,7 @@ a porta é minha, quem entra sou eu.
 - Quando criança gostava de desenhar, mas papelão e fita eram os materiais principais da maioria dos trabalhos
 - Maior hiperfoco artesanal da infância: Omnitrixes improvisados
 - Praticava criação assistindo Art Attack, Mister Maker e um programa do Iberê
+- Antes de ilustrador quis ser várias coisas, quase sempre ligadas à arte; a opção mais fora da curva foi policial
 
 ---
 
