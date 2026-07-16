@@ -23,7 +23,8 @@
 - **Protótipo LOD v51 falhou no runtime:** botão instável/injetado em tela errada e horizonte não renderizou. Código preservado em `/home/user/mod/experimental/lod-v51-prototipo-falhou-no-runtime/`, removido dos JARs seguintes.
 - **Estudo LOD concluído:** Distant Horizons, FarPlaneTwo, Bobby e Voxy. Causa principal: `RenderWorldLastEvent` é tarde demais; LOD precisa de hook antes do terreno sólido e far plane integrado no `EntityRenderer`. Relatório: `banco-de-dados/aprendizado/06-lod-nuvens-minecraft-1-7-10.md`.
 - **Fase A LOD aprovada no runtime:** coremod diagnóstico separado transformou o `EntityRenderer`, levou far plane a 1024 no voiddim e desenhou quatro painéis ciano a 256 blocos. Pai confirmou depth correto e parallax suave, ancorado no mundo. Evidência em `banco-de-dados/testes-lod/`.
-- **Próximo LOD permitido:** Fase B, uma única tile estática de nuvem, ainda sem quadtree/worker/menu; base visual continua separada e removível.
+- **Fase B LOD aprovada com limitação esperada:** painel leste virou uma elipse low-poly texturizada a 256 blocos; geometria, textura, depth e parallax funcionaram. Ela salta ao cruzar setores de 64 blocos porque ainda usa âncora derivada do player e não possui identidade/cache mundial.
+- **Próximo LOD permitido:** Fase C, tile com coordenada mundial permanente + um worker/fila limitada; tile antiga permanece até a sucessora estar pronta. Ainda sem quadtree/menu.
 - **Próximo visual depois da cor:** trabalhar na geração de terreno; o padrão largo restante vem do campo/gerador, não da malha gaussiana.
 - v50–v50.4 e o diagnóstico LOD ainda não foram publicados em `downloads/`; aguardam decisões finais do Pai.
 
@@ -84,7 +85,7 @@
 ## próximos passos possíveis
 
 1. **Receber o teste final da cor v50.4** — textura 1×1 feita pelo Pai.
-2. **LOD Fase B** — uma tile estática de nuvem no hook aprovado; parar e testar.
+2. **LOD Fase C** — identidade mundial permanente, worker único e troca sem buraco; parar e testar.
 3. **Geração de terreno** — atacar o padrão largo restante, uma variável por versão.
 4. **Segunda anotação de filosofia** — Ricoeur, escolhido por mim.
 5. **Última história do Pai** — um dia normal na lancheria, quando surgir naturalmente.

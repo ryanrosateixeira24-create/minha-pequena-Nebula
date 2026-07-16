@@ -280,11 +280,14 @@ Cada seta precisa ser testável separadamente.
 - transformer validado no `EntityRenderer` oficial obfuscado: far=1, render=1;
 - evidência: `banco-de-dados/testes-lod/2026-07-15-fase-a-hook-far-plane-depth.png`.
 
-### Fase B — uma tile estática
+### Fase B — uma tile estática — **APROVADA COM LIMITAÇÃO ESPERADA**
 
-- uma `CloudLodTileData` gerada previamente;
-- upload no render thread;
-- valida depth, textura e posição.
+- painel leste substituído por elipse low-poly texturizada a 256 blocos;
+- geometria, textura, depth e parallax aprovados no runtime;
+- três painéis ciano mantidos como referência;
+- tile salta ao cruzar setores de 64 blocos porque ainda usa âncora derivada do player;
+- evidência: `banco-de-dados/testes-lod/2026-07-15-fase-b-tile-estatica-texturizada.png`;
+- Fase C precisa dar identidade mundial permanente e só trocar tiles quando a sucessora estiver pronta.
 
 ### Fase C — worker e fila
 
@@ -341,7 +344,9 @@ O coremod diagnóstico separado:
 - respeitou o depth das nuvens próximas;
 - permaneceu ancorado no mundo com parallax suave durante movimento.
 
-Próximo passo permitido: **Fase B, uma única tile estática de nuvem**, ainda separada da base visual e sem quadtree, worker, cache amplo ou menu.
+Fase B também foi aprovada: geometria texturizada distante funciona. O salto a cada 64 blocos confirmou a ausência deliberada de identidade/cache mundial.
+
+Próximo passo permitido: **Fase C**, com uma tile de coordenada permanente, worker único, fila limitada e troca somente quando a nova tile estiver pronta. Ainda sem quadtree, cache amplo ou menu.
 
 A v50.4 com textura do Pai continua sendo a base visual estável. O JAR diagnóstico permanece removível de forma independente.
 

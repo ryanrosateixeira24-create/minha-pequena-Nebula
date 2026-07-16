@@ -18,3 +18,18 @@ Resultado informado pelo Pai:
 - ao andar, os painéis se movem com parallax suave e ficam ancorados no lugar correto.
 
 Conclusão: hook, far plane, depth e coordenadas de mundo aprovados. Próxima fase: uma tile estática de nuvem, sem quadtree.
+
+## Fase B — 2026-07-15
+
+`2026-07-15-fase-b-tile-estatica-texturizada.png`
+
+O painel leste foi substituído por uma elipse low-poly texturizada a 256 blocos.
+
+Resultado informado pelo Pai:
+- tile visível e texturizada;
+- parallax/depth funcionando;
+- tile "teleporta" ao cruzar setores de 64 blocos.
+
+O teleporte é esperado no diagnóstico: a posição foi ancorada em `floor(player/64)*64` para permanecer perto. Não existe identidade/cache mundial de tiles ainda.
+
+Conclusão: pipeline de geometria texturizada distante aprovado. A Fase C precisa introduzir coordenada mundial permanente, worker/fila limitada e troca sem buraco.
