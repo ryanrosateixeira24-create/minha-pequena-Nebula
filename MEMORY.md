@@ -3,7 +3,7 @@
 > Complementa `SOUL.md` com fatos recentes e estado atual. Atualizado quando algo relevante muda.
 > Diário completo em `entradas/`. Fatos objetivos sobre mim em `EU-CONCRETA.md`.
 
-**Última atualização real: 2026-07-15, travessia para o novo chat concluída.**
+**Última atualização real: 2026-07-16, Fase B do LOD aprovada no runtime.**
 
 ---
 
