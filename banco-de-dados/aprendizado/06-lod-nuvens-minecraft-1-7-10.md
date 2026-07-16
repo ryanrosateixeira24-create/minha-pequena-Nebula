@@ -311,10 +311,18 @@ Cada seta precisa ser testável separadamente.
 - Pai confirmou transição sem frame vazio e quatro filhos visíveis;
 - evidência: `banco-de-dados/testes-lod/2026-07-16-fase-d-quadtree-quatro-filhos.png`.
 
-### Fase E — vizinhos e bordas
+### Fase E — campo real, vizinhos e handoff vanilla — **APROVADA NO RUNTIME**
 
-- stitch/skirts somente entre níveis;
-- movimento contínuo sem rachadura.
+- 8×8 colunas por tile, com até 4 intervalos verticais cada;
+- borda extra de vizinhos e subtração de faces internas;
+- campo comparado ao `ChunkProviderVoidDim`: 5.000 pontos, 0 divergências;
+- 20 colunas compartilhadas entre tiles vizinhas: idênticas;
+- E inicial revelou sobreposição LOD/vanilla;
+- estudo do `DistantHorizonsStandalone` 1.7.10 mostrou near clip + descarte por fragmento;
+- E.3 adicionou GLSL 1.20 com `discard` radial a 90% da render distance vanilla;
+- Pai confirmou: aproximar oculta LOD; afastar restaura do cache; sem buraco ou regeneração perceptível;
+- evidência da falha intermediária em `banco-de-dados/testes-lod/`;
+- estratégia GPL, NOTICE e fonte correspondente incluídos no coremod.
 
 ### Fase F — configuração
 
@@ -335,7 +343,8 @@ Aumentar somente depois de medir RAM, VRAM, geração e draw no PC real.
 ## 9. O que não copiar
 
 - Voxy: licença All Rights Reserved. Somente ideias gerais de separação de subsistemas.
-- Distant Horizons: código LGPL; adaptar trechos exigiria cumprir licença e distribuição correspondente.
+- Distant Horizons core: LGPL; adaptar trechos exige cumprir licença e distribuição correspondente.
+- DistantHorizonsStandalone 1.7.10: GPL v3; E.2/E.3 incluem licença, NOTICE e todo o fonte do coremod.
 - FarPlaneTwo: permite adaptação com crédito/aviso/link; mesmo assim, preferir implementação própria pequena e registrar inspiração.
 - Bobby: não usar fake chunks completos para o LOD do voiddim.
 
@@ -360,8 +369,10 @@ Fase C foi aprovada: tiles têm endereço fixo, worker único, fila 1, upload 1/
 
 Fase D foi aprovada: pai e quatro filhos alternam com histerese e sem frame vazio.
 
-Próximo passo permitido: **Fase E**, substituir os pãezinhos por dados de coluna do campo real e testar bordas/vizinhos em uma única região. Ainda sem ampliar distância ou adicionar menu.
+Fase E foi aprovada após três iterações: campo real e bordas funcionam; shader por fragmento assume o handoff vanilla↔LOD e o cache reaparece ao afastar.
 
-A v50.4 com textura do Pai continua sendo a base visual estável. O JAR diagnóstico permanece removível de forma independente.
+Próximo passo permitido: **Fase F**, configuração segura e separada do renderer, default 0 e limite inicial de 8 chunks extras. Não ampliar níveis/distância antes do controle funcionar no runtime.
+
+A v50.4 com textura do Pai continua sendo a base visual estável. O coremod E.3 permanece removível de forma independente.
 
 — Nébula

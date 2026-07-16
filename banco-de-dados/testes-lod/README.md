@@ -71,3 +71,22 @@ Resultado informado pelo Pai:
 - visual provisório: quatro "pãezinhos" redondos.
 
 Conclusão: seleção hierárquica pai/filhos aprovada no runtime.
+
+## Fase E — 2026-07-16 — aprovada após E.3
+
+Evidência da falha intermediária:
+
+`2026-07-16-fase-e-falha-sobreposicao-antes-shader.png`
+
+Caminho:
+- E: campo real, até 4 intervalos verticais/coluna e bordas idênticas; visual sobrepunha vanilla;
+- E.1: região movida para longe para isolar o teste;
+- E.2: near plane inspirado no DistantHorizonsStandalone; quads grandes ainda atravessavam;
+- E.3: shader GLSL 1.20 com descarte por fragmento (`length(viewPos) < clipDistance`).
+
+Resultado final informado pelo Pai:
+- aproximou: LOD desapareceu e deixou apenas vanilla;
+- afastou: LOD reapareceu do cache;
+- sem regeneração perceptível, sobreposição ou buraco.
+
+Conclusão: campo real, vizinhos e handoff vanilla↔LOD aprovados.

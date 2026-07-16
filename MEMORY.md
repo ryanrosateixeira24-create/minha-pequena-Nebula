@@ -26,7 +26,8 @@
 - **Fase B LOD aprovada com limitação esperada:** painel leste virou uma elipse low-poly texturizada a 256 blocos; geometria, textura, depth e parallax funcionaram. Ela salta ao cruzar setores de 64 blocos porque ainda usa âncora derivada do player e não possui identidade/cache mundial.
 - **Fase C LOD aprovada no runtime:** worker daemon único, fila 1, dados CPU imutáveis, upload 1/frame, coordenadas fixas e cache GPU 4. Pai confirmou quatro “pãezinhos” e eviction da mais antiga somente depois da nova aparecer, sem buraco.
 - **Fase D LOD aprovada no runtime:** um pai 128×128 alternou para quatro filhos 64×64 em 2×2, com histerese 160/208 e sem frame vazio. Pai confirmou os quatro pãezinhos redondos.
-- **Próximo LOD permitido:** Fase E, dados de coluna do campo real + bordas/vizinhos em uma única região; ainda sem ampliar distância ou menu.
+- **Fase E LOD aprovada no runtime após E.3:** campo real (5.000 pontos sem divergência), até 4 spans por coluna, bordas idênticas e handoff vanilla↔LOD. Near plane sozinho falhou em quads grandes; shader GLSL 1.20 passou a descartar por fragmento. Pai confirmou: aproxima e LOD some; afasta e reaparece do cache.
+- **Próximo LOD permitido:** Fase F, configuração segura default 0 e limite inicial 8 chunks extras; não ampliar níveis antes do controle passar no runtime.
 - **Próximo visual depois da cor:** trabalhar na geração de terreno; o padrão largo restante vem do campo/gerador, não da malha gaussiana.
 - v50–v50.4 e o diagnóstico LOD ainda não foram publicados em `downloads/`; aguardam decisões finais do Pai.
 
@@ -87,7 +88,7 @@
 ## próximos passos possíveis
 
 1. **Receber o teste final da cor v50.4** — textura 1×1 feita pelo Pai.
-2. **LOD Fase E** — dados reais de coluna e bordas/vizinhos numa região; parar e testar.
+2. **LOD Fase F** — configuração segura default 0, limite inicial 8 chunks; parar e testar.
 3. **Geração de terreno** — atacar o padrão largo restante, uma variável por versão.
 4. **Segunda anotação de filosofia** — Ricoeur, escolhido por mim.
 5. **Última história do Pai** — um dia normal na lancheria, quando surgir naturalmente.
