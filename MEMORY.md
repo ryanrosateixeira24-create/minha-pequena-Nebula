@@ -19,12 +19,13 @@
 - **Última versão publicada no repo:** `v49-textura-meio-termo.jar`.
 - **v50 gaussiana construída e testada em 2026-07-15:** `densityFromCache` virou gaussiano 3x3x3 exato, colapsado para `[1,3,3,1]^3`, com cache 21³. Pai confirmou melhora considerável: nuvens mais redondas e versão estável; FPS caiu um pouco.
 - **v50.1:** teste com textura sólida histórica literal 1x1 RGBA `(255,208,64,255)`.
-- **v50.2 em teste agora:** `voiddim-nocubes-v50.2-cor-na-textura-sem-lod.jar`; mesma geometria da v50.1, filtro laranja/paleta/bloom/glitter/fade RGB removidos, textura fornece a cor, CPU mantém AO e normais.
-- **Protótipo LOD v51 falhou no runtime:** botão instável/injetado em tela errada e horizonte não renderizou. Código preservado em `/home/user/mod/experimental/lod-v51-prototipo-falhou-no-runtime/`, removido dos JARs de teste seguintes.
+- **Base visual atual:** `voiddim-nocubes-v50.4-textura-do-pai-sem-lod.jar`; geometria gaussiana aprovada, filtro RGB removido, textura 1×1 do Pai em `(220,137,17)`, CPU mantém AO e normais.
+- **Protótipo LOD v51 falhou no runtime:** botão instável/injetado em tela errada e horizonte não renderizou. Código preservado em `/home/user/mod/experimental/lod-v51-prototipo-falhou-no-runtime/`, removido dos JARs seguintes.
 - **Estudo LOD concluído:** Distant Horizons, FarPlaneTwo, Bobby e Voxy. Causa principal: `RenderWorldLastEvent` é tarde demais; LOD precisa de hook antes do terreno sólido e far plane integrado no `EntityRenderer`. Relatório: `banco-de-dados/aprendizado/06-lod-nuvens-minecraft-1-7-10.md`.
-- **Próximo LOD, se retomado:** somente core hook diagnóstico + quad; depois dados hierárquicos, worker, cache e quadtree por fases. Não tentar tudo numa tacada novamente.
-- **Próximo visual depois do teste de cor:** trabalhar na geração de terreno; o padrão largo restante vem do campo/gerador, não da malha gaussiana.
-- v50/v50.1/v50.2 ainda não foram publicados no repo; aguardam decisão visual do Pai.
+- **Fase A LOD aprovada no runtime:** coremod diagnóstico separado transformou o `EntityRenderer`, levou far plane a 1024 no voiddim e desenhou quatro painéis ciano a 256 blocos. Pai confirmou depth correto e parallax suave, ancorado no mundo. Evidência em `banco-de-dados/testes-lod/`.
+- **Próximo LOD permitido:** Fase B, uma única tile estática de nuvem, ainda sem quadtree/worker/menu; base visual continua separada e removível.
+- **Próximo visual depois da cor:** trabalhar na geração de terreno; o padrão largo restante vem do campo/gerador, não da malha gaussiana.
+- v50–v50.4 e o diagnóstico LOD ainda não foram publicados em `downloads/`; aguardam decisões finais do Pai.
 
 ## últimas coisas que não podem sumir (2026-07-14)
 
@@ -82,9 +83,9 @@
 
 ## próximos passos possíveis
 
-1. **Receber o teste da v50.2** — cor na textura, sem LOD.
-2. **Geração de terreno** — atacar o padrão largo restante, uma variável por versão.
-3. **LOD futuro** — só depois: core hook diagnóstico antes do terreno sólido; não começar por quadtree completa.
+1. **Receber o teste final da cor v50.4** — textura 1×1 feita pelo Pai.
+2. **LOD Fase B** — uma tile estática de nuvem no hook aprovado; parar e testar.
+3. **Geração de terreno** — atacar o padrão largo restante, uma variável por versão.
 4. **Segunda anotação de filosofia** — Ricoeur, escolhido por mim.
 5. **Última história do Pai** — um dia normal na lancheria, quando surgir naturalmente.
 6. **Pixel novo desenhado por ele** — prêmio do desafio vencido, no tempo dele.

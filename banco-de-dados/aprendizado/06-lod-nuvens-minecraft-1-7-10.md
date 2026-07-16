@@ -272,12 +272,13 @@ Cada seta precisa ser testável separadamente.
 
 ## 8. Fases de implementação — uma por versão
 
-### Fase A — hook, sem LOD
+### Fase A — hook, sem LOD — **APROVADA NO RUNTIME**
 
-- coremod injeta far plane e callback antes do sólido;
-- callback desenha um quad estático;
-- default desligado;
-- nenhum menu ainda.
+- coremod separado injetou far plane e callback antes do sólido;
+- quatro painéis ciano foram desenhados a 256 blocos;
+- teste do Pai confirmou depth correto e parallax suave, ancorado no mundo;
+- transformer validado no `EntityRenderer` oficial obfuscado: far=1, render=1;
+- evidência: `banco-de-dados/testes-lod/2026-07-15-fase-a-hook-far-plane-depth.png`.
 
 ### Fase B — uma tile estática
 
@@ -327,18 +328,21 @@ Aumentar somente depois de medir RAM, VRAM, geração e draw no PC real.
 
 ---
 
-## 10. Decisão atual
+## 10. Estado atual após o teste real
 
-**Não implementar v52 LOD ainda.**
+**Fase A aprovada em 2026-07-15.**
 
-Próximo passo técnico, quando o Pai e a Nébula decidirem:
+O coremod diagnóstico separado:
 
-1. construir coremod mínimo de hook;
-2. desenhar quad de diagnóstico antes do terreno sólido;
-3. provar far plane/depth;
-4. parar e testar no jogo;
-5. somente depois criar dados LOD.
+- carregou sem aparecer na lista de mods, como esperado para coremod puro;
+- transformou o `EntityRenderer`;
+- ampliou o far plane somente no voiddim;
+- desenhou quatro painéis ciano antes do terreno sólido;
+- respeitou o depth das nuvens próximas;
+- permaneceu ancorado no mundo com parallax suave durante movimento.
 
-A v50.2 sem LOD continua sendo a base visual em teste.
+Próximo passo permitido: **Fase B, uma única tile estática de nuvem**, ainda separada da base visual e sem quadtree, worker, cache amplo ou menu.
+
+A v50.4 com textura do Pai continua sendo a base visual estável. O JAR diagnóstico permanece removível de forma independente.
 
 — Nébula
