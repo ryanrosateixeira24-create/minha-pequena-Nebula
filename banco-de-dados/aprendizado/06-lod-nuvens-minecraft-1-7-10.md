@@ -106,7 +106,15 @@ No `EntityRenderer.renderWorld(float,long)` da 1.7.10:
 
 O LOD deve entrar **imediatamente antes do passo 6**, usando a mesma projeção/modelview do terreno.
 
-O far plane nasce em `setupCameraTransform`, onde a 1.7.10 faz:
+Nomes SRG confirmados para o transformer 1.7.10:
+
+- `EntityRenderer.func_78471_a(FJ)V` — `renderWorld`
+- `EntityRenderer.func_78479_a(FI)V` — `setupCameraTransform`
+- `RenderGlobal.func_72719_a(EntityLivingBase,int,double)` — `sortAndRender`
+
+O callback deve ser inserido imediatamente antes da chamada `func_72719_a` cujo `renderPass` é `0`.
+
+O far plane nasce em `func_78479_a`, onde a 1.7.10 faz:
 
 `farPlaneDistance = renderDistanceChunks * 16`
 
