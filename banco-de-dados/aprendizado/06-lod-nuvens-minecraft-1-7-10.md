@@ -289,11 +289,17 @@ Cada seta precisa ser testável separadamente.
 - evidência: `banco-de-dados/testes-lod/2026-07-15-fase-b-tile-estatica-texturizada.png`;
 - Fase C precisa dar identidade mundial permanente e só trocar tiles quando a sucessora estiver pronta.
 
-### Fase C — worker e fila
+### Fase C — worker, identidade e cache — **APROVADA NO RUNTIME**
 
-- gerar uma tile procedural fora da thread de render;
-- upload limitado;
-- cancelar ao sair do raio.
+- worker daemon único, prioridade mínima;
+- fila de geração com capacidade 1;
+- dados CPU imutáveis, sem chamadas OpenGL no worker;
+- upload máximo de 1 display list por frame;
+- coordenadas de tile fixas no mundo;
+- tile antiga permanece até a sucessora estar pronta;
+- cache GPU limitado a 4; eviction somente após a nova estar disponível;
+- Pai confirmou quatro tiles e substituição sem buraco;
+- evidência: `banco-de-dados/testes-lod/2026-07-16-fase-c-worker-cache-quatro-tiles.png`.
 
 ### Fase D — quadtree com dois níveis
 
@@ -346,7 +352,9 @@ O coremod diagnóstico separado:
 
 Fase B também foi aprovada: geometria texturizada distante funciona. O salto a cada 64 blocos confirmou a ausência deliberada de identidade/cache mundial.
 
-Próximo passo permitido: **Fase C**, com uma tile de coordenada permanente, worker único, fila limitada e troca somente quando a nova tile estiver pronta. Ainda sem quadtree, cache amplo ou menu.
+Fase C foi aprovada: tiles têm endereço fixo, worker único, fila 1, upload 1/frame e cache GPU 4. A tile antiga só sai depois da nova estar disponível, sem buraco.
+
+Próximo passo permitido: **Fase D**, quadtree mínima com somente dois níveis e transição pai/filhos. Antes de ampliar distância, precisa provar que pai e filhos nunca somem simultaneamente.
 
 A v50.4 com textura do Pai continua sendo a base visual estável. O JAR diagnóstico permanece removível de forma independente.
 

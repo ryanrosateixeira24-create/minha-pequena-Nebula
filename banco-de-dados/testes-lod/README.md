@@ -33,3 +33,22 @@ Resultado informado pelo Pai:
 O teleporte é esperado no diagnóstico: a posição foi ancorada em `floor(player/64)*64` para permanecer perto. Não existe identidade/cache mundial de tiles ainda.
 
 Conclusão: pipeline de geometria texturizada distante aprovado. A Fase C precisa introduzir coordenada mundial permanente, worker/fila limitada e troca sem buraco.
+
+## Fase C — 2026-07-16
+
+`2026-07-16-fase-c-worker-cache-quatro-tiles.png`
+
+Pipeline assíncrono com tile mundial fixa:
+- worker daemon único;
+- fila de capacidade 1;
+- dados CPU imutáveis;
+- upload máximo de 1 display list por frame;
+- cache GPU máximo de 4 tiles.
+
+Resultado informado pelo Pai:
+- tiles deixaram de teleportar como um único objeto;
+- novas tiles apareceram conforme cruzava setores;
+- o total chegou a 4;
+- ao entrar uma nova, a mais antiga sumiu somente depois da substituta aparecer.
+
+Conclusão: identidade mundial, geração assíncrona, upload limitado e eviction pós-substituição aprovados. Visual provisório parece "pãezinhos celestiais".

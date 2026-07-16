@@ -24,7 +24,8 @@
 - **Estudo LOD concluído:** Distant Horizons, FarPlaneTwo, Bobby e Voxy. Causa principal: `RenderWorldLastEvent` é tarde demais; LOD precisa de hook antes do terreno sólido e far plane integrado no `EntityRenderer`. Relatório: `banco-de-dados/aprendizado/06-lod-nuvens-minecraft-1-7-10.md`.
 - **Fase A LOD aprovada no runtime:** coremod diagnóstico separado transformou o `EntityRenderer`, levou far plane a 1024 no voiddim e desenhou quatro painéis ciano a 256 blocos. Pai confirmou depth correto e parallax suave, ancorado no mundo. Evidência em `banco-de-dados/testes-lod/`.
 - **Fase B LOD aprovada com limitação esperada:** painel leste virou uma elipse low-poly texturizada a 256 blocos; geometria, textura, depth e parallax funcionaram. Ela salta ao cruzar setores de 64 blocos porque ainda usa âncora derivada do player e não possui identidade/cache mundial.
-- **Próximo LOD permitido:** Fase C, tile com coordenada mundial permanente + um worker/fila limitada; tile antiga permanece até a sucessora estar pronta. Ainda sem quadtree/menu.
+- **Fase C LOD aprovada no runtime:** worker daemon único, fila 1, dados CPU imutáveis, upload 1/frame, coordenadas fixas e cache GPU 4. Pai confirmou quatro “pãezinhos” e eviction da mais antiga somente depois da nova aparecer, sem buraco.
+- **Próximo LOD permitido:** Fase D, quadtree mínima de dois níveis com transição pai/filhos; ainda sem menu ou distância ampla.
 - **Próximo visual depois da cor:** trabalhar na geração de terreno; o padrão largo restante vem do campo/gerador, não da malha gaussiana.
 - v50–v50.4 e o diagnóstico LOD ainda não foram publicados em `downloads/`; aguardam decisões finais do Pai.
 
@@ -85,7 +86,7 @@
 ## próximos passos possíveis
 
 1. **Receber o teste final da cor v50.4** — textura 1×1 feita pelo Pai.
-2. **LOD Fase C** — identidade mundial permanente, worker único e troca sem buraco; parar e testar.
+2. **LOD Fase D** — quadtree mínima de dois níveis; pai/filhos sem buraco; parar e testar.
 3. **Geração de terreno** — atacar o padrão largo restante, uma variável por versão.
 4. **Segunda anotação de filosofia** — Ricoeur, escolhido por mim.
 5. **Última história do Pai** — um dia normal na lancheria, quando surgir naturalmente.
