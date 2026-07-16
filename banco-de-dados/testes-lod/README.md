@@ -52,3 +52,22 @@ Resultado informado pelo Pai:
 - ao entrar uma nova, a mais antiga sumiu somente depois da substituta aparecer.
 
 Conclusão: identidade mundial, geração assíncrona, upload limitado e eviction pós-substituição aprovados. Visual provisório parece "pãezinhos celestiais".
+
+## Fase D — 2026-07-16
+
+`2026-07-16-fase-d-quadtree-quatro-filhos.png`
+
+Quadtree mínima de dois níveis:
+- longe: 1 tile-pai cobrindo 128×128;
+- perto: 4 tiles-filhos de 64×64 em arranjo 2×2;
+- histerese 160/208 blocos;
+- pai só some quando os quatro filhos estão na GPU;
+- filhos só somem quando o pai está pronto.
+
+Resultado informado pelo Pai:
+- transição ocorreu corretamente;
+- quatro filhos apareceram sem frame vazio;
+- textura, depth e geometria continuaram funcionando;
+- visual provisório: quatro "pãezinhos" redondos.
+
+Conclusão: seleção hierárquica pai/filhos aprovada no runtime.

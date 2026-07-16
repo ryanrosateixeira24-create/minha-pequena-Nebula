@@ -301,11 +301,15 @@ Cada seta precisa ser testável separadamente.
 - Pai confirmou quatro tiles e substituição sem buraco;
 - evidência: `banco-de-dados/testes-lod/2026-07-16-fase-c-worker-cache-quatro-tiles.png`.
 
-### Fase D — quadtree com dois níveis
+### Fase D — quadtree com dois níveis — **APROVADA NO RUNTIME**
 
-- nível 0 e 1;
-- transição pai/filhos sem buraco;
-- métricas.
+- nível 1: um pai cobrindo 128×128;
+- nível 0: quatro filhos de 64×64 em arranjo 2×2;
+- histerese 160/208 blocos;
+- pai permanece até os quatro filhos estarem na GPU;
+- filhos permanecem até o pai estar pronto;
+- Pai confirmou transição sem frame vazio e quatro filhos visíveis;
+- evidência: `banco-de-dados/testes-lod/2026-07-16-fase-d-quadtree-quatro-filhos.png`.
 
 ### Fase E — vizinhos e bordas
 
@@ -354,7 +358,9 @@ Fase B também foi aprovada: geometria texturizada distante funciona. O salto a 
 
 Fase C foi aprovada: tiles têm endereço fixo, worker único, fila 1, upload 1/frame e cache GPU 4. A tile antiga só sai depois da nova estar disponível, sem buraco.
 
-Próximo passo permitido: **Fase D**, quadtree mínima com somente dois níveis e transição pai/filhos. Antes de ampliar distância, precisa provar que pai e filhos nunca somem simultaneamente.
+Fase D foi aprovada: pai e quatro filhos alternam com histerese e sem frame vazio.
+
+Próximo passo permitido: **Fase E**, substituir os pãezinhos por dados de coluna do campo real e testar bordas/vizinhos em uma única região. Ainda sem ampliar distância ou adicionar menu.
 
 A v50.4 com textura do Pai continua sendo a base visual estável. O JAR diagnóstico permanece removível de forma independente.
 
