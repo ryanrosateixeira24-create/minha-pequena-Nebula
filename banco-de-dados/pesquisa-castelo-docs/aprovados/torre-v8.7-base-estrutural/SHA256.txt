@@ -1,0 +1,3 @@
+75e0cde9371fff709ee14968b5b5723ed31538da6877c3e412d9325672d55013  /home/user/minha-pequena-Nebula/banco-de-dados/pesquisa-castelo-docs/aprovados/torre-v8.7-base-estrutural/build_torre_v8_7.py
+3c4a2b546b18f26607e759f8fc8aaebf561216eed040e083db2204b80ec9a7c8  /home/user/minha-pequena-Nebula/banco-de-dados/pesquisa-castelo-docs/aprovados/torre-v8.7-base-estrutural/torre-v8.7.schematic
+680a505cd41f799f998f895a38a115a04ef57e222f404f89cd7369064dc82e49  /home/user/minha-pequena-Nebula/banco-de-dados/pesquisa-castelo-docs/aprovados/torre-v8.7-base-estrutural/53-torre-v8.7-terreo-largo.png

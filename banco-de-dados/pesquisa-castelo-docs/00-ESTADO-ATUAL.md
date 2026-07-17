@@ -1,6 +1,38 @@
 # Estado atual do trabalho — Check-In Station
 
-**Data:** 2026-07-11 madrugada
+## Atualização de retomada — 2026-07-16
+
+A torre v5 foi regenerada e renderizada diretamente dos voxels. A auditoria
+mostrou footprint real 17×15 (não 14), corpo quase quadrado e detalhes dos quatro
+andares concentrados na fachada norte. Ela foi preservada, mas não será
+replicada.
+
+Foi criada a **torre v6 candidata**, sem sobrescrever a v5:
+
+- perfil hexagonal simétrico 15×11×38;
+- seis pilares e seis faces decoradas;
+- quatro andares legíveis em todo o perímetro;
+- 1.269 blocos conectados;
+- porta norte 3×4;
+- schematic e turnaround exato gerados.
+
+Arquivos novos principais:
+
+- `build_torre_v6.py`
+- `25-torre-v6-turnaround-hexagonal.png`
+- `26-auditoria-torre-v5-e-v6.md`
+- `torre-v6.schematic`
+
+**Status atual — DOIS MARCOS CONGELADOS:** v8.7 continua como base estrutural
+pura. O Pai aprovou a **v8.8 autoral** como base visual/de acabamento: medalhões
+profundos, cintas vinho, portas dark oak/âmbar e soffit discreto, sem mudar uma
+coordenada. Snapshot em `aprovados/torre-v8.8-acabamento-aprovado/`. Ajustes
+manuais futuros devem nascer em nova variante; ainda falta teste no Minecraft
+antes de replicar as quatro torres.
+
+---
+
+**Data histórica:** 2026-07-11 madrugada
 **Onde estamos:** modelando a TORRE isolada. quando ficar 100%, replicamos 4× nos cantos + criamos os outros elementos (salão, portões, muro).
 
 ## Torre — MEDIDAS CONFIRMADAS

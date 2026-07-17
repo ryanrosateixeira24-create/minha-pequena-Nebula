@@ -1,0 +1,4 @@
+6f0f26de7d52772d982d76fa867af122484774dfe065628902575c28921afdb2  /home/user/minha-pequena-Nebula/banco-de-dados/pesquisa-castelo-docs/aprovados/torre-v8.8-acabamento-aprovado/build_torre_v8_8.py
+36f22dd820586bc43f98e00639336616a2f61b2b773a34fec125a5250d4cb473  /home/user/minha-pequena-Nebula/banco-de-dados/pesquisa-castelo-docs/aprovados/torre-v8.8-acabamento-aprovado/torre-v8.8.schematic
+1e384d2222ed215eac01cb6672854ba0b09a9c67264aa6e7878648149c674e68  /home/user/minha-pequena-Nebula/banco-de-dados/pesquisa-castelo-docs/aprovados/torre-v8.8-acabamento-aprovado/57-torre-v8.8-acabamento-autoral.png
+4cb5f63f973c10176ca697b5b31b48b52b2d86ea6c2f7765568039344d889078  /home/user/minha-pequena-Nebula/banco-de-dados/pesquisa-castelo-docs/aprovados/torre-v8.8-acabamento-aprovado/58-comparacao-detalhes-v8.7-v8.8.png
