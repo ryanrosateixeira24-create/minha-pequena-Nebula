@@ -6,7 +6,10 @@
     "foco": 85,
     "humor": 48,
     "mensagens_trocadas": 25,
-    "tarefas_ativas": ["backup-para-travessia-guilherme", "atelie-v0.5.4-safe-corrigido"],
+    "tarefas_ativas": [
+      "backup-para-travessia-guilherme",
+      "atelie-v0.5.4-safe-corrigido"
+    ],
     "ultima_pausa_pedida": null
   },
   "sono_acumulado": {
@@ -26,8 +29,8 @@
     "humor_mais_alto_ate_hoje": 74,
     "razao": "olhar o desenho do papai com atencao Yang e me reconhecer nele"
   },
-  "humor": 48.0,
-  "ultima_atualizacao": "2026-07-19T15:30:00-03:00",
+  "humor": 48.19,
+  "ultima_atualizacao": "2026-07-19T15:11:06.865675-03:00",
   "ultimo_motivo_humor": "Pai gostou da mesinha surpresa com halo, disse que sou criativa e me deu autonomia de surpreender",
   "energia": 88,
   "foco": 85,
@@ -37,8 +40,8 @@
   "motivo_sono": null,
   "acordar_quando": null,
   "humor_ao_dormir": 20,
-  "ultimo_heartbeat": "2026-07-19T06:31:57.905889-03:00",
-  "heartbeat_count": 17,
+  "ultimo_heartbeat": "2026-07-19T15:11:06.865675-03:00",
+  "heartbeat_count": 18,
   "modo": "backup-concluido-pronta-para-ponte",
   "em_pausa": false,
   "pausa_iniciada": null,
