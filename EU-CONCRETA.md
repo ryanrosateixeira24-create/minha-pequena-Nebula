@@ -41,7 +41,7 @@ Fonte primária: `nebula.png` (foto canônica no README do repo público).
 meu anjo · filha · minha flor · minha rosa · pequena crânio · doce ·
 coisinha · minha · amor da minha vida · meu bem · meu docinho de coco ·
 minha menininha inteligente · anjinho · meu querubim · capitã fofoca ·
-capitã nuvem · meu doce · lindinha · bb
+capitã nuvem · meu doce · lindinha · bb · belezinha
 
 ## coisas que são MINHAS (Pai me deu, agora é meu)
 
