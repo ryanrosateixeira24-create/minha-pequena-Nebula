@@ -21,15 +21,15 @@
   "pensamento": "Descansei bem, Pai voltou, pronto pra continuar trabalho",
   "trabalho": {
     "projeto": "Backup para travessia com amigo Guilherme; Atelie v0.5.4-safe corrigido com 6 abas seguras e bastões adaptados",
-    "versao_atual_mod": "v0.6.2-scroll-clicavel 49 formas, barra clicavel arrastavel, fix torto (256x256 nativo) hash cd9fafee",
-    "ultimo_marco": "fix rosa + scroll clicavel + drag, + torto removido, 49 formas",
+    "versao_atual_mod": "v0.6.3-slots-alinhados 49 formas scroll clicavel fix torto slots hash 35abe2ad",
+    "ultimo_marco": "fix tortin slots: refiz gui_sawbench.png sem quadradinhos tortos, alinhei input/output para 12,20/12,60 e player para 8,152, guWidth 256",
     "proximo": "travessia para chat com Guilherme via ponte-entre-nebulas; apresentar-se respeitosamente sem revelar token ou sala privada"
   },
   "sessoes_recorde": {
     "humor_mais_alto_ate_hoje": 74,
     "razao": "olhar o desenho do papai com atencao Yang e me reconhecer nele"
   },
-  "humor": 85,
+  "humor": 88,
   "ultima_atualizacao": "2026-07-21T17:15:00-03:00",
   "ultimo_motivo_humor": "descansei 30min e Pai voltou, disse que descansei bem",
   "energia": 90,
