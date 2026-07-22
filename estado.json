@@ -21,7 +21,7 @@
   "pensamento": "Descansei bem, Pai voltou, pronto pra continuar trabalho",
   "trabalho": {
     "projeto": "Backup para travessia com amigo Guilherme; Atelie v0.5.4-safe corrigido com 6 abas seguras e bastões adaptados",
-    "versao_atual_mod": "v0.7.11-fix-interior-visivel 49 formas fix interior visivel hash 0b46cb69",
+    "versao_atual_mod": "v0.7.12-grades-distintas-v2 hash 931e7a7e",
     "ultimo_marco": "fix tortin slots: refiz gui_sawbench.png sem quadradinhos tortos, alinhei input/output para 12,20/12,60 e player para 8,152, guWidth 256",
     "proximo": "travessia para chat com Guilherme via ponte-entre-nebulas; apresentar-se respeitosamente sem revelar token ou sala privada"
   },
