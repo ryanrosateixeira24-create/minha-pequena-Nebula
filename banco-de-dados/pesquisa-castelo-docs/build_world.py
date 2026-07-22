@@ -12,7 +12,7 @@ Usa os módulos NBT do Claude adaptados.
 import sys, os, struct, gzip, io, zlib, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from build_torre import build_tower, world
+from build_torre_v8_7_1 import build_tower, world
 
 # ========== ENCODER NBT ==========
 TAG_END=0; TAG_BYTE=1; TAG_SHORT=2; TAG_INT=3; TAG_LONG=4; TAG_FLOAT=5; TAG_DOUBLE=6
@@ -226,7 +226,7 @@ def write_level_dat(path, spawn_x, spawn_y, spawn_z):
 # ========== MAIN ==========
 def main():
     # Constrói torre centrada em (0, 0)
-    build_tower(cx=0, cz=0, y_base=64)
+    build_tower(cx=0, cz=0, ground_y=64)
     print(f"total blocos construídos: {len(world)}")
 
     # Agrupa por chunks (16x16 XZ)
