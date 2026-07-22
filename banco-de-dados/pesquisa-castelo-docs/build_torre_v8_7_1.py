@@ -33,20 +33,17 @@ def build_tower(cx,cz,ground_y=1):
     for (x,y,z),block in source.world.items():
         world[(x,y,z)]=block
 
-    # Adiciona base cinza octogonal 3 blocos de espessura abaixo do plinth
-    # Plinth de V8.7 é 33x33 em Y=0 (fill_profile half 16 chamfer 11)
-    # Base cinza será 39x39 (half 19 chamfer 13) em Y=-3,-2,-1
+    # Adiciona base cinza octogonal 3 blocos de espessura abaixo do plinth - FIX fragmentação
+    # V8.7 plinth em Y=0 (33x33), então base cinza deve ser imediatamente abaixo em Y=-1,-2,-3 sem buraco
     base_half, base_chamfer = 19, 13  # 39x39
     for dy in range(3):
-        y = ground_y - 1 - dy - 1  # -1, -2, -3 abaixo do chão original (que era 0)
-        # Na verdade ground_y=1, então y = 1-1-0-1 = -1? Vamos fazer Y=-2,-3,-4
-        y = ground_y - 2 - dy
+        y = ground_y - 1 - dy  # Y=-1,-2,-3 (ground_y=5 => 4,3,2) sem buraco
         fill_profile(cx,cz,y,base_half,base_chamfer,LG)
 
-    # Grama embaixo da base cinza, maior ainda 45x45
+    # Grama embaixo da base cinza, maior ainda 45x45 em Y=-4
     for x in range(cx-22, cx+23):
         for z in range(cz-22, cz+23):
-            world[(x, ground_y-5, z)]=GR
+            world[(x, ground_y-4, z)]=GR
 
     return max(y for (_,y,_),block in world.items() if block!=AR)
 
