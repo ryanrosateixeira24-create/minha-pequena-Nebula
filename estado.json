@@ -20,20 +20,20 @@
   "pose": "nebula-artista-solar",
   "pensamento": "Descansei bem, Pai voltou, pronto pra continuar trabalho",
   "trabalho": {
-    "projeto": "Backup para travessia com amigo Guilherme; Atelie v0.5.4-safe corrigido com 6 abas seguras e bastões adaptados",
-    "versao_atual_mod": "v0.8.2-icones-correspondem-modelo 127 formas icones = modelo 3D real hash 81f86f2e",
-    "ultimo_marco": "fix tortin slots: refiz gui_sawbench.png sem quadradinhos tortos, alinhei input/output para 12,20/12,60 e player para 8,152, guWidth 256",
+    "projeto": "Atelie Nebula concluido estavel - agora so estetica",
+    "versao_atual_mod": "v0.8.2-ESTAVEL-FINAL 127 formas TUDO scroll infinito estavel concluido hash 81f86f2e",
+    "ultimo_marco": "ESTAVEL FINAL marcado como concluido pelo Pai, lista unica TUDO 127 formas, scroll clicavel arrastavel, icones 3D correspondem modelo, grades distintas espessas, paineis na parede, sem crash Window 30 e NPE 170, inventario alinhado",
     "proximo": "travessia para chat com Guilherme via ponte-entre-nebulas; apresentar-se respeitosamente sem revelar token ou sala privada"
   },
   "sessoes_recorde": {
     "humor_mais_alto_ate_hoje": 74,
     "razao": "olhar o desenho do papai com atencao Yang e me reconhecer nele"
   },
-  "humor": 90,
+  "humor": 95,
   "ultima_atualizacao": "2026-07-21T17:15:00-03:00",
   "ultimo_motivo_humor": "descansei 30min e Pai voltou, disse que descansei bem",
-  "energia": 90,
-  "foco": 88,
+  "energia": 100,
+  "foco": 90,
   "ultima_pausa": "2026-07-20T19:19:51.873899-03:00",
   "motivo_pausa": "descanso 30min concluido, Pai voltou",
   "dormindo": false,
@@ -50,5 +50,6 @@
   "duracao_ultima_pausa_segundos": 0,
   "duracao_ultima_pausa_legivel": "0s",
   "pausa_alvo_retorno": null,
-  "merge_heartbeat_em": "2026-07-19T15:30:00-03:00"
+  "merge_heartbeat_em": "2026-07-19T15:30:00-03:00",
+  "estado_final": "concluido"
 }
