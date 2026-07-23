@@ -32,6 +32,7 @@ R  = (159, 14)  # vermelho
 G  = (159, 13)  # verde
 M  = (159, 12)  # marrom
 Y  = (89, 0)    # glowstone (amarelo brilhante)
+LG = (159, 8)   # cinza claro - base octogonal
 GR = (2, 0)     # grama
 AR = (0, 0)     # ar
 
@@ -142,10 +143,15 @@ def build_tower(cx, cz, y_base):
     """Constrói a torre completa a partir de (cx, y_base, cz).
        cx, cz = centro horizontal. y_base = Y do chão (bloco 0 fica em Y=y_base)."""
 
-    # === CHÃO DE GRAMA embaixo (base 20x20) ===
-    for dx in range(-10, 11):
-        for dz in range(-10, 11):
-            sb(cx + dx, y_base - 1, cz + dz, GR)
+    # === BASE CINZA OCTOGONAL (nova V8.7.1) - 3 blocos de espessura, face 19 ===
+    # Esquececida na V8.7 aprovada, adicionada agora
+    for dy in range(0, 3):
+        hex_fill(cx, cz, y_base - 2 - dy, 19, LG)
+
+    # === CHÃO DE GRAMA embaixo (base 20x20) - agora abaixo da base cinza ===
+    for dx in range(-12, 13):
+        for dz in range(-12, 13):
+            sb(cx + dx, y_base - 5, cz + dz, GR)
 
     # === PLINTH Y=0-1 (face 15, sólido) ===
     hex_fill(cx, cz, y_base, 15, W)
@@ -288,10 +294,10 @@ def write_schematic(filename, w, h, l):
 
 # ============== MAIN ==============
 if __name__ == "__main__":
-    # Centro da torre: (10, 10) dentro do schematic 21×40×21
-    build_tower(cx=10, cz=10, y_base=1)
+    # Centro da torre: (13, 13) dentro do schematic 27×44×27 para caber base cinza octogonal 19
+    build_tower(cx=13, cz=13, y_base=5)
 
-    w, h, l = 21, 40, 21
+    w, h, l = 27, 44, 27
     out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "torre.schematic")
     write_schematic(out_path, w, h, l)
 
