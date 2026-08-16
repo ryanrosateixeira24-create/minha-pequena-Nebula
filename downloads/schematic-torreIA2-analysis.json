@@ -1,0 +1,568 @@
+{
+  "total": 2675,
+  "basenames": {
+    "nebulaatelier:tower_gray": 125,
+    "nebulaatelier:tower_white": 1452,
+    "nebulaatelier:tower_green": 104,
+    "nebulaatelier:tower_red": 994
+  },
+  "shapes": {
+    "0": 2584,
+    "79": 16,
+    "82": 14,
+    "90": 32,
+    "92": 12,
+    "91": 12,
+    "145": 1,
+    "142": 2,
+    "17": 2
+  },
+  "combos": [
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 3,
+      "turn": 3,
+      "count": 219
+    },
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 4,
+      "turn": 1,
+      "count": 216
+    },
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 4,
+      "turn": 3,
+      "count": 204
+    },
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 2,
+      "turn": 1,
+      "count": 202
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 3,
+      "turn": 3,
+      "count": 169
+    },
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 5,
+      "turn": 3,
+      "count": 161
+    },
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 3,
+      "turn": 1,
+      "count": 159
+    },
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 2,
+      "turn": 3,
+      "count": 147
+    },
+    {
+      "basename": "nebulaatelier:tower_white",
+      "shape": 0,
+      "side": 5,
+      "turn": 1,
+      "count": 144
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 2,
+      "turn": 1,
+      "count": 139
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 4,
+      "turn": 1,
+      "count": 122
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 3,
+      "turn": 1,
+      "count": 113
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 4,
+      "turn": 3,
+      "count": 112
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 2,
+      "turn": 3,
+      "count": 103
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 5,
+      "turn": 3,
+      "count": 86
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 5,
+      "turn": 1,
+      "count": 56
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 5,
+      "turn": 1,
+      "count": 21
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 5,
+      "turn": 3,
+      "count": 20
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 4,
+      "turn": 3,
+      "count": 19
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 5,
+      "turn": 1,
+      "count": 18
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 4,
+      "turn": 3,
+      "count": 15
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 5,
+      "turn": 3,
+      "count": 15
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 2,
+      "turn": 3,
+      "count": 15
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 3,
+      "turn": 1,
+      "count": 13
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 4,
+      "turn": 1,
+      "count": 13
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 2,
+      "turn": 3,
+      "count": 13
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 4,
+      "turn": 1,
+      "count": 13
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 2,
+      "turn": 1,
+      "count": 11
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 3,
+      "turn": 3,
+      "count": 8
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 90,
+      "side": 5,
+      "turn": "?",
+      "count": 8
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 90,
+      "side": 4,
+      "turn": "?",
+      "count": 8
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 90,
+      "side": 3,
+      "turn": "?",
+      "count": 8
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 90,
+      "side": 2,
+      "turn": "?",
+      "count": 8
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 2,
+      "turn": 1,
+      "count": 8
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 0,
+      "side": 3,
+      "turn": 3,
+      "count": 7
+    },
+    {
+      "basename": "nebulaatelier:tower_green",
+      "shape": 0,
+      "side": 3,
+      "turn": 1,
+      "count": 7
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": "?",
+      "turn": 3,
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 79,
+      "side": "?",
+      "turn": 2,
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 82,
+      "side": "?",
+      "turn": 1,
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 82,
+      "side": "?",
+      "turn": "?",
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": "?",
+      "turn": "?",
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 79,
+      "side": "?",
+      "turn": 3,
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 79,
+      "side": "?",
+      "turn": 1,
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 79,
+      "side": "?",
+      "turn": "?",
+      "count": 4
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": "?",
+      "turn": 2,
+      "count": 3
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 82,
+      "side": 1,
+      "turn": 1,
+      "count": 3
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 5,
+      "turn": "?",
+      "count": 2
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": "?",
+      "turn": 1,
+      "count": 2
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 142,
+      "side": "?",
+      "turn": "?",
+      "count": 2
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 17,
+      "side": "?",
+      "turn": "?",
+      "count": 2
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 82,
+      "side": "?",
+      "turn": 3,
+      "count": 2
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 92,
+      "side": "?",
+      "turn": 1,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 91,
+      "side": "?",
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 92,
+      "side": "?",
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": 1,
+      "turn": 2,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": 1,
+      "turn": 2,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": 1,
+      "turn": 3,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": "?",
+      "turn": 1,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": "?",
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": "?",
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 91,
+      "side": "?",
+      "turn": 1,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 91,
+      "side": "?",
+      "turn": 3,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": 1,
+      "turn": 1,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": 1,
+      "turn": 3,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": "?",
+      "turn": 1,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": "?",
+      "turn": 3,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 145,
+      "side": "?",
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 92,
+      "side": "?",
+      "turn": 2,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 91,
+      "side": "?",
+      "turn": 2,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_gray",
+      "shape": 92,
+      "side": "?",
+      "turn": 3,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": 1,
+      "turn": 1,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": 1,
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": 1,
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": "?",
+      "turn": 2,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 91,
+      "side": "?",
+      "turn": 2,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 92,
+      "side": "?",
+      "turn": 3,
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 0,
+      "side": 2,
+      "turn": "?",
+      "count": 1
+    },
+    {
+      "basename": "nebulaatelier:tower_red",
+      "shape": 82,
+      "side": "?",
+      "turn": 2,
+      "count": 1
+    }
+  ]
+}
