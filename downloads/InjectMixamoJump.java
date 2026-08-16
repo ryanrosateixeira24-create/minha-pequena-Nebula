@@ -151,9 +151,10 @@ public class InjectMixamoJump {
                 System.out.println("  [FOUND] " + mn.name + mn.desc);
                 System.out.println("  [BEFORE] " + mn.instructions.size() + " instrucoes");
 
-                // Limpa o método
+                // Limpa o método (instruções, try-catch E local variable table)
                 mn.instructions.clear();
                 mn.tryCatchBlocks.clear();
+                mn.localVariables.clear();  // ← ESTA É A CHAVE! Sem isso dá crash
 
                 InsnList code = new InsnList();
 
