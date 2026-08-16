@@ -4,28 +4,100 @@ import java.io.*;
 import java.util.jar.*;
 
 /**
- * Patcher: Injeta animação de pulo estilo Mixamo no BetterMovePlayerModel
+ * Patcher: Substitui applyJumpAnimation por versão estilo Mixamo
  *
- * O que faz:
- * - Substitui o método applyJumpAnimation inteiro
- * - A animação tem 4 fases baseadas no motionY (velocidade vertical do player):
- *   * motionY > +0.2  → PROPULSION (subindo rápido, braços pra cima)
- *   * +0.2 > motionY > -0.1 → APEX (no topo, suspendido)
- *   * -0.1 > motionY > -0.4 → FALL (caindo, preparando pouso)
- *   * motionY < -0.4   → LAND (quase aterrissando, joelhos dobrados)
+ * Baseado na documentação DOC-COMPLETA seção 9 (Portar Animações do Mixamo)
+ * e seção 2.3 (Jump Animation original do mod)
  *
- * USO: java -cp "asm-all-5.0.3.jar" InjectMixamoJump <in.jar> <out.jar>
+ * Sistema:
+ * - 4 fases baseadas em motionY (velocidade vertical)
+ * - Cada fase tem ângulos pros 6 bones (body, head, rightArm, leftArm, rightLeg, leftLeg)
+ * - Usa setLowerAngles() pro skinning de cotovelo/joelho (já implementado no SkinnedLimbRenderer)
+ * - Usa setTorsoAngles() pro skinning do quadril
+ *
+ * IMPORTANTE: limpa localVariables pra evitar "Duplicated LocalVariableTable" crash
  */
 public class InjectMixamoJump {
 
-    // === ÂNGULOS EM GRAUS (vindos do JSON) ===
-    // Cada fase: [bodyX, headX, rArmX, rArmY, lArmX, lArmY, rLegX, rLegZ, lLegX, lLegZ, knee]
+    // === ÂNGULOS POR FASE (em GRAUS) ===
+    // Formato: [bodyX, headX, rArmX, rArmY, rArmZ, lArmX, lArmY, lArmZ, rLegX, rLegY, rLegZ, lLegX, lLegY, lLegZ, knee]
+    // Knee é aplicado via setLowerAngles
 
-    static final float[] ANTICIPATION = {25, -10, -60, 0, -60, 0, -45, 0, -45, 0, 80};
-    static final float[] PROPULSION    = {-10, 15, -150, -20, -150, 20, 20, -10, 20, 10, 20};
-    static final float[] APEX          = {5, 0, -90, -45, -90, 45, -15, -10, 15, 10, 25};
-    static final float[] FALL          = {15, 10, -45, -30, -45, 30, -30, -10, 30, 10, 40};
-    static final float[] LAND          = {30, -15, -90, -25, -90, 25, -60, 0, -60, 0, 90};
+    // ANTICIPATION (motionY > 0.2) - subindo rápido
+    static final float[] PROPULSION = {
+        -10f,   // body X (levemente inclinado pra trás)
+         15f,   // head X (olhando pra cima)
+        -90f,   // rArm X (braço pra frente)
+        -30f,   // rArm Y (aberto)
+          0f,   // rArm Z
+        -90f,   // lArm X
+         30f,   // lArm Y
+          0f,   // lArm Z
+         20f,   // rLeg X (levemente levantada)
+          0f,   // rLeg Y
+        -10f,   // rLeg Z
+         20f,   // lLeg X
+          0f,   // lLeg Y
+         10f,   // lLeg Z
+         20f    // knee (pouco dobrado)
+    };
+
+    // APEX (motionY entre -0.1 e 0.2) - no topo, suspendido
+    static final float[] APEX = {
+          5f,   // body X
+          0f,   // head X
+        -45f,   // rArm X (mais relaxado)
+        -45f,   // rArm Y
+          0f,   // rArm Z
+        -45f,   // lArm X
+         45f,   // lArm Y
+          0f,   // lArm Z
+        -15f,   // rLeg X
+          0f,   // rLeg Y
+        -10f,   // rLeg Z
+         15f,   // lLeg X
+          0f,   // lLeg Y
+         10f,   // lLeg Z
+         25f    // knee
+    };
+
+    // FALL (motionY entre -0.4 e -0.1) - caindo
+    static final float[] FALL = {
+         15f,   // body X
+         10f,   // head X
+        -45f,   // rArm X
+        -30f,   // rArm Y
+          0f,   // rArm Z
+        -45f,   // lArm X
+         30f,   // lArm Y
+          0f,   // lArm Z
+        -30f,   // rLeg X
+          0f,   // rLeg Y
+        -10f,   // rLeg Z
+         30f,   // lLeg X
+          0f,   // lLeg Y
+         10f,   // lLeg Z
+         40f    // knee
+    };
+
+    // LAND (motionY <= -0.4) - pousando
+    static final float[] LAND = {
+         30f,   // body X (bem inclinado pra frente)
+        -15f,   // head X
+        -90f,   // rArm X (pra frente)
+        -25f,   // rArm Y
+          0f,   // rArm Z
+        -90f,   // lArm X
+         25f,   // lArm Y
+          0f,   // lArm Z
+        -60f,   // rLeg X
+          0f,   // rLeg Y
+          0f,   // rLeg Z
+        -60f,   // lLeg X
+          0f,   // lLeg Y
+          0f,   // lLeg Z
+         90f    // knee (BEM dobrado, absorção de impacto)
+    };
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
@@ -72,68 +144,65 @@ public class InjectMixamoJump {
         System.out.println("[DONE] JAR gerado: " + outJar);
     }
 
-    // Helper: cria instrucoes para "this.bone.rotateAngleX = value"
-    static InsnList setBoneRot(String field, float value) {
-        InsnList list = new InsnList();
-        list.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        list.add(new FieldInsnNode(Opcodes.GETFIELD,
-            "net/gobbob/bettermove/BetterMovePlayerModel", field,
-            "Lnet/minecraft/client/model/ModelRenderer;"));
-        list.add(new LdcInsnNode(value));
-        list.add(new FieldInsnNode(Opcodes.PUTFIELD,
-            "net/minecraft/client/model/ModelRenderer", "field_78795_f", "F"));
-        return list;
-    }
-
-    static InsnList setBoneRotY(String field, float value) {
-        InsnList list = new InsnList();
-        list.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        list.add(new FieldInsnNode(Opcodes.GETFIELD,
-            "net/gobbob/bettermove/BetterMovePlayerModel", field,
-            "Lnet/minecraft/client/model/ModelRenderer;"));
-        list.add(new LdcInsnNode(value));
-        list.add(new FieldInsnNode(Opcodes.PUTFIELD,
-            "net/minecraft/client/model/ModelRenderer", "field_78796_g", "F"));
-        return list;
-    }
-
-    static InsnList setBoneRotZ(String field, float value) {
-        InsnList list = new InsnList();
-        list.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        list.add(new FieldInsnNode(Opcodes.GETFIELD,
-            "net/gobbob/bettermove/BetterMovePlayerModel", field,
-            "Lnet/minecraft/client/model/ModelRenderer;"));
-        list.add(new LdcInsnNode(value));
-        list.add(new FieldInsnNode(Opcodes.PUTFIELD,
-            "net/minecraft/client/model/ModelRenderer", "field_78808_h", "F"));
-        return list;
-    }
-
-    // Helper: aplica uma fase da animação
+    // Aplica uma fase: [body, head, rArm(X,Y,Z), lArm(X,Y,Z), rLeg(X,Y,Z), lLeg(X,Y,Z), knee]
     static InsnList applyPhase(float[] phase) {
         InsnList code = new InsnList();
-        // 0: bodyX, 1: headX, 2: rArmX, 3: rArmY, 4: lArmX, 5: lArmY,
-        // 6: rLegX, 7: rLegZ, 8: lLegX, 9: lLegZ, 10: knee
-        code.add(setBoneRot("field_78115_e", phase[0]));   // body X
-        code.add(setBoneRot("field_78116_c", phase[1]));   // head X (field_78116_c = bipedHead)
-        code.add(setBoneRot("field_78112_f", phase[2]));   // rArm X
-        code.add(setBoneRotY("field_78112_f", phase[3]));  // rArm Y
-        code.add(setBoneRot("field_78113_g", phase[4]));   // lArm X
-        code.add(setBoneRotY("field_78113_g", phase[5]));  // lArm Y
-        code.add(setBoneRot("field_78123_h", phase[6]));   // rLeg X
-        code.add(setBoneRotZ("field_78123_h", phase[7]));  // rLeg Z
-        code.add(setBoneRot("field_78124_i", phase[8]));   // lLeg X
-        code.add(setBoneRotZ("field_78124_i", phase[9]));  // lLeg Z
-        // setLowerAngles(cotovelo, cotovelo, joelho, joelho)
+        String MR = "Lnet/minecraft/client/model/ModelRenderer;";
+        String BMP = "net/gobbob/bettermove/BetterMovePlayerModel";
+
+        // 0: bodyX → field_78115_e.rotateAngleX
+        code.add(setRot(BMP, "field_78115_e", MR, phase[0], "field_78795_f"));
+        // 1: headX → field_78116_c.rotateAngleX
+        code.add(setRot(BMP, "field_78116_c", MR, phase[1], "field_78795_f"));
+        // 2: rArmX → field_78112_f.rotateAngleX
+        code.add(setRot(BMP, "field_78112_f", MR, phase[2], "field_78795_f"));
+        // 3: rArmY → field_78112_f.rotateAngleY
+        code.add(setRot(BMP, "field_78112_f", MR, phase[3], "field_78796_g"));
+        // 4: rArmZ → field_78112_f.rotateAngleZ
+        code.add(setRot(BMP, "field_78112_f", MR, phase[4], "field_78808_h"));
+        // 5: lArmX → field_78113_g.rotateAngleX
+        code.add(setRot(BMP, "field_78113_g", MR, phase[5], "field_78795_f"));
+        // 6: lArmY → field_78113_g.rotateAngleY
+        code.add(setRot(BMP, "field_78113_g", MR, phase[6], "field_78796_g"));
+        // 7: lArmZ → field_78113_g.rotateAngleZ
+        code.add(setRot(BMP, "field_78113_g", MR, phase[7], "field_78808_h"));
+        // 8: rLegX → field_78123_h.rotateAngleX
+        code.add(setRot(BMP, "field_78123_h", MR, phase[8], "field_78795_f"));
+        // 9: rLegY → field_78123_h.rotateAngleY
+        code.add(setRot(BMP, "field_78123_h", MR, phase[9], "field_78796_g"));
+        // 10: rLegZ → field_78123_h.rotateAngleZ
+        code.add(setRot(BMP, "field_78123_h", MR, phase[10], "field_78808_h"));
+        // 11: lLegX → field_78124_i.rotateAngleX
+        code.add(setRot(BMP, "field_78124_i", MR, phase[11], "field_78795_f"));
+        // 12: lLegY → field_78124_i.rotateAngleY
+        code.add(setRot(BMP, "field_78124_i", MR, phase[12], "field_78796_g"));
+        // 13: lLegZ → field_78124_i.rotateAngleZ
+        code.add(setRot(BMP, "field_78124_i", MR, phase[13], "field_78808_h"));
+
+        // setLowerAngles(cotoveloR, cotoveloL, joelhoR, joelhoL)
+        // Cotovelos = 0 (não temos no JSON do Mine-imator)
+        // Joelhos = phase[14]
         code.add(new VarInsnNode(Opcodes.ALOAD, 0));
-        code.add(new LdcInsnNode(0.0f));  // cotovelo direito
-        code.add(new LdcInsnNode(0.0f));  // cotovelo esquerdo
-        code.add(new LdcInsnNode(phase[10]));  // joelho direito
-        code.add(new LdcInsnNode(phase[10]));  // joelho esquerdo
+        code.add(new LdcInsnNode(0.0f));      // cotovelo R
+        code.add(new LdcInsnNode(0.0f));      // cotovelo L
+        code.add(new LdcInsnNode(phase[14])); // joelho R
+        code.add(new LdcInsnNode(phase[14])); // joelho L
         code.add(new MethodInsnNode(Opcodes.INVOKESPECIAL,
-            "net/gobbob/bettermove/BetterMovePlayerModel",
-            "setLowerAngles", "(FFFF)V", false));
+            BMP, "setLowerAngles", "(FFFF)V", false));
+
         return code;
+    }
+
+    // Helper: cria instrucoes "this.bone.field = value"
+    static InsnList setRot(String ownerClass, String boneField, String boneDesc,
+                           float value, String rotField) {
+        InsnList list = new InsnList();
+        list.add(new VarInsnNode(Opcodes.ALOAD, 0));
+        list.add(new FieldInsnNode(Opcodes.GETFIELD, ownerClass, boneField, boneDesc));
+        list.add(new LdcInsnNode(value));
+        list.add(new FieldInsnNode(Opcodes.PUTFIELD,
+            "net/minecraft/client/model/ModelRenderer", rotField, "F"));
+        return list;
     }
 
     static byte[] injectClass(InputStream is) throws Exception {
@@ -146,39 +215,36 @@ public class InjectMixamoJump {
         java.util.List<MethodNode> methodList = cn.methods;
 
         for (MethodNode mn : methodList) {
-            // Acha applyJumpAnimation(float, float, float)
             if (mn.name.equals("applyJumpAnimation") && mn.desc.equals("(FFF)V")) {
                 System.out.println("  [FOUND] " + mn.name + mn.desc);
                 System.out.println("  [BEFORE] " + mn.instructions.size() + " instrucoes");
 
-                // Limpa o método (instruções, try-catch E local variable table)
+                // CHAVE: limpa TUDO (instruções, try-catch E local variables)
                 mn.instructions.clear();
                 mn.tryCatchBlocks.clear();
-                mn.localVariables.clear();  // ← ESTA É A CHAVE! Sem isso dá crash
+                mn.localVariables.clear();  // evita "Duplicated LocalVariableTable"
 
                 InsnList code = new InsnList();
 
-                // === LÓGICA ===
+                // === LÓGICA DE FASES ===
                 // if (motionY > 0.2) → PROPULSION
                 // else if (motionY > -0.1) → APEX
                 // else if (motionY > -0.4) → FALL
                 // else → LAND
 
                 // if (motionY > 0.2f) goto propulsion
-                // FCMPL: compara motionY e 0.2, deixa 1/0/-1 na stack
-                // IFGT: pula se valor > 0 (ou seja, motionY > 0.2)
-                code.add(new VarInsnNode(Opcodes.FLOAD, 1));     // push motionY
-                code.add(new LdcInsnNode(0.2f));                 // push 0.2
-                code.add(new InsnNode(Opcodes.FCMPL));           // motionY - 0.2 (consome os 2, deixa int 1/0/-1)
+                code.add(new VarInsnNode(Opcodes.FLOAD, 1));
+                code.add(new LdcInsnNode(0.2f));
+                code.add(new InsnNode(Opcodes.FCMPL));
                 LabelNode propulsionLabel = new LabelNode();
-                code.add(new JumpInsnNode(Opcodes.IFGT, propulsionLabel));  // if result > 0, motionY > 0.2 → propulsion
+                code.add(new JumpInsnNode(Opcodes.IFGT, propulsionLabel));
 
                 // === APEX (motionY <= 0.2 && motionY > -0.1) ===
                 code.add(new VarInsnNode(Opcodes.FLOAD, 1));
                 code.add(new LdcInsnNode(-0.1f));
                 code.add(new InsnNode(Opcodes.FCMPL));
                 LabelNode fallLabel = new LabelNode();
-                code.add(new JumpInsnNode(Opcodes.IFLE, fallLabel));  // if motionY <= -0.1, vai pra fall
+                code.add(new JumpInsnNode(Opcodes.IFLE, fallLabel));
                 code.add(applyPhase(APEX));
                 code.add(new InsnNode(Opcodes.RETURN));
 
@@ -188,7 +254,7 @@ public class InjectMixamoJump {
                 code.add(new LdcInsnNode(-0.4f));
                 code.add(new InsnNode(Opcodes.FCMPL));
                 LabelNode landLabel = new LabelNode();
-                code.add(new JumpInsnNode(Opcodes.IFLE, landLabel));  // if motionY <= -0.4, vai pra land
+                code.add(new JumpInsnNode(Opcodes.IFLE, landLabel));
                 code.add(applyPhase(FALL));
                 code.add(new InsnNode(Opcodes.RETURN));
 
@@ -204,7 +270,7 @@ public class InjectMixamoJump {
 
                 mn.instructions.add(code);
 
-                // Marca que houve mudança de tamanho do frame
+                // Ajusta maxStack pra acomodar os 4 floats do setLowerAngles
                 mn.maxStack = 6;
                 mn.maxLocals = 4;
 
