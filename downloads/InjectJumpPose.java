@@ -4,30 +4,24 @@ import java.io.*;
 import java.util.jar.*;
 
 /**
- * Patcher: Injeta a pose de pulo do Mine-imator no BetterMovePlayerModel
+ * Patcher: Injeta pose de pulo SÓ QUANDO O PLAYER ESTA NO AR
  *
- * O que faz:
- * 1. Mantém a chamada super.func_78087_a() (animações vanilla)
- * 2. Aplica a pose estática de pulo depois:
- *    - Braços abertos (Y +/- 60°)
- *    - Joelhos dobrados (87.7° esquerdo, 44° direito)
- *    - Coxas levantadas (X -49° e -38°)
- *    - Corpo levemente inclinado (13.6°)
- *
- * USO: java -cp "asm-all-5.0.3.jar" InjectJumpPose <in.jar> <out.jar>
+ * - Mantém animação vanilla (super.func_78087_a)
+ * - Se entityIn != null && !entityIn.field_70122_E (no ar):
+ *     aplica pose de pulo (agachamento + braços pra frente)
+ * - Senão: pose normal vanilla
  */
 public class InjectJumpPose {
 
-    // Pose angles em GRAUS, convertidos do JSON
-    static final float BODY_X = 13.6f;
-    static final float RARM_Y = -57.0f;
-    static final float LARM_Y = 60.8f;
-    static final float RLEG_X = -38.94f;
-    static final float RLEG_Z = -29.45f;
-    static final float RLEG_LOWER = 44.0f;
-    static final float LLEG_X = -49.58f;
-    static final float LLEG_Z = 16.16f;
-    static final float LLEG_LOWER = 87.7f;
+    // Pose angles em GRAUS (baseado na foto que o pai mandou)
+    static final float BODY_X = 10.0f;          // corpo levemente inclinado
+    static final float RARM_X = -90.0f;         // braço direito pra frente
+    static final float LARM_X = -90.0f;         // braço esquerdo pra frente
+    static final float RARM_Z = -10.0f;         // braço direito aberto
+    static final float LARM_Z = 10.0f;          // braço esquerdo aberto
+    static final float RLEG_X = -15.0f;         // coxa direita levantada
+    static final float LLEG_X = -15.0f;         // coxa esquerda levantada
+    static final float KNEE = 30.0f;            // joelhos dobrados
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
@@ -56,7 +50,7 @@ public class InjectJumpPose {
                         jos.putNextEntry(newEntry);
                         jos.write(patched);
                         jos.closeEntry();
-                        System.out.println("[OK] Pose de pulo injetada!");
+                        System.out.println("[OK] Pose de pulo condicional injetada!");
                     } else {
                         jos.putNextEntry(new JarEntry(name));
                         try (InputStream is = jar.getInputStream(entry)) {
@@ -74,8 +68,7 @@ public class InjectJumpPose {
         System.out.println("[DONE] JAR gerado: " + outJar);
     }
 
-    // Helper: cria instrucao "this.field_X.field_Y = value"
-    static InsnList makeSet(String fieldA, String descA, float value, String fieldB, String descB) {
+    static InsnList setField(String fieldA, String descA, float value, String fieldB, String descB) {
         InsnList list = new InsnList();
         list.add(new VarInsnNode(Opcodes.ALOAD, 0));
         list.add(new FieldInsnNode(Opcodes.GETFIELD,
@@ -101,8 +94,11 @@ public class InjectJumpPose {
                 System.out.println("  [BEFORE] " + mn.instructions.size() + " instrucoes");
 
                 InsnList ins = mn.instructions;
+                String MR = "Lnet/minecraft/client/model/ModelRenderer;";
+                String BMP = "net/gobbob/bettermove/BetterMovePlayerModel";
+                String ENT = "Lnet/minecraft/entity/Entity;";
 
-                // Acha o super call
+                // === Acha o super call ===
                 AbstractInsnNode superCall = null;
                 AbstractInsnNode cursor = ins.getFirst();
                 while (cursor != null) {
@@ -115,9 +111,9 @@ public class InjectJumpPose {
                     }
                     cursor = cursor.getNext();
                 }
-                if (superCall == null) throw new RuntimeException("Nao achei super.func_78087_a!");
+                if (superCall == null) throw new RuntimeException("Nao achei super!");
 
-                // Remove TUDO depois do super
+                // === Remove TUDO depois do super ===
                 AbstractInsnNode cur = superCall.getNext();
                 while (cur != null) {
                     AbstractInsnNode next = cur.getNext();
@@ -125,48 +121,70 @@ public class InjectJumpPose {
                     cur = next;
                 }
 
-                // Constrói a pose completa
-                InsnList pose = new InsnList();
-                String MR = "Lnet/minecraft/client/model/ModelRenderer;";
-                String BMP = "net/gobbob/bettermove/BetterMovePlayerModel";
+                // === Constrói o código novo ===
+                // Estrutura:
+                //   super.func_78087_a(...)  <-- já existe, deixa
+                //   this.field_78117_n = false  <-- precisa adicionar!
+                //   if (entityIn == null || entityIn.field_70122_E) return;  <-- se no chão, sai
+                //   <aplica pose de pulo>
+                //   return
 
-                // body lean
-                pose.add(makeSet("field_78115_e", MR, BODY_X, "field_78795_f", "F"));
-                // right arm Y
-                pose.add(makeSet("field_78112_f", MR, RARM_Y, "field_78796_g", "F"));
-                // left arm Y
-                pose.add(makeSet("field_78113_g", MR, LARM_Y, "field_78796_g", "F"));
-                // right leg X
-                pose.add(makeSet("field_78123_h", MR, RLEG_X, "field_78795_f", "F"));
-                // right leg Z
-                pose.add(makeSet("field_78123_h", MR, RLEG_Z, "field_78808_h", "F"));
-                // left leg X
-                pose.add(makeSet("field_78124_i", MR, LLEG_X, "field_78795_f", "F"));
-                // left leg Z
-                pose.add(makeSet("field_78124_i", MR, LLEG_Z, "field_78808_h", "F"));
+                InsnList code = new InsnList();
 
-                // setLowerAngles(0, 0, RLEG_LOWER, LLEG_LOWER) - joelhos dobrados
-                pose.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                pose.add(new LdcInsnNode(0.0f));
-                pose.add(new LdcInsnNode(0.0f));
-                pose.add(new LdcInsnNode(RLEG_LOWER));
-                pose.add(new LdcInsnNode(LLEG_LOWER));
-                pose.add(new MethodInsnNode(Opcodes.INVOKESPECIAL,
+                // 1. this.field_78117_n = false
+                code.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                code.add(new InsnNode(Opcodes.ICONST_0));
+                code.add(new FieldInsnNode(Opcodes.PUTFIELD,
+                    BMP, "field_78117_n", "Z"));
+
+                // 2. if (entityIn == null) return  (se entity é null, não aplica)
+                //    Carrega entityIn (param 7)
+                code.add(new VarInsnNode(Opcodes.ALOAD, 7));
+                LabelNode notNull = new LabelNode();
+                code.add(new JumpInsnNode(Opcodes.IFNONNULL, notNull));
+                code.add(new InsnNode(Opcodes.RETURN));
+                code.add(notNull);
+
+                // 3. if (entityIn.field_70122_E) return  (se no chão, não aplica)
+                code.add(new VarInsnNode(Opcodes.ALOAD, 7));
+                code.add(new FieldInsnNode(Opcodes.GETFIELD,
+                    "net/minecraft/entity/Entity", "field_70122_E", "Z"));
+                LabelNode inAir = new LabelNode();
+                code.add(new JumpInsnNode(Opcodes.IFEQ, inAir));  // if onGround == 0 (no ar), pula pro bloco de pulo
+                code.add(new InsnNode(Opcodes.RETURN));
+                code.add(inAir);
+
+                // 4. Bloco de pose de pulo (só roda se tá no ar)
+                code.add(setField("field_78115_e", MR, BODY_X, "field_78795_f", "F"));
+                code.add(setField("field_78112_f", MR, RARM_X, "field_78795_f", "F"));
+                code.add(setField("field_78112_f", MR, RARM_Z, "field_78808_h", "F"));
+                code.add(setField("field_78113_g", MR, LARM_X, "field_78795_f", "F"));
+                code.add(setField("field_78113_g", MR, LARM_Z, "field_78808_h", "F"));
+                code.add(setField("field_78123_h", MR, RLEG_X, "field_78795_f", "F"));
+                code.add(setField("field_78124_i", MR, LLEG_X, "field_78795_f", "F"));
+
+                // setLowerAngles(0, 0, KNEE, KNEE)
+                code.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                code.add(new LdcInsnNode(0.0f));
+                code.add(new LdcInsnNode(0.0f));
+                code.add(new LdcInsnNode(KNEE));
+                code.add(new LdcInsnNode(KNEE));
+                code.add(new MethodInsnNode(Opcodes.INVOKESPECIAL,
                     BMP, "setLowerAngles", "(FFFF)V", false));
 
-                // setTorsoAngles(13.6, 0, 0) - corpo inclinado (lower rotation)
-                pose.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                pose.add(new LdcInsnNode(BODY_X));
-                pose.add(new LdcInsnNode(0.0f));
-                pose.add(new LdcInsnNode(0.0f));
-                pose.add(new MethodInsnNode(Opcodes.INVOKESPECIAL,
+                // setTorsoAngles(BODY_X, 0, 0)
+                code.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                code.add(new LdcInsnNode(BODY_X));
+                code.add(new LdcInsnNode(0.0f));
+                code.add(new LdcInsnNode(0.0f));
+                code.add(new MethodInsnNode(Opcodes.INVOKESPECIAL,
                     BMP, "setTorsoAngles", "(FFF)V", false));
 
-                // RETURN
-                pose.add(new InsnNode(Opcodes.RETURN));
+                // 5. RETURN
+                code.add(new InsnNode(Opcodes.RETURN));
 
-                // Insere a pose depois do super call
-                ins.insert(pose);
+                // === Insere o bloco novo depois do super ===
+                ins.insert(code);
 
                 System.out.println("  [AFTER] " + mn.instructions.size() + " instrucoes");
                 patched = true;
