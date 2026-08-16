@@ -2,25 +2,15 @@ import org.objectweb.asm.*;
 import org.objectweb.asm.tree.*;
 import java.io.*;
 import java.util.jar.*;
-import java.util.zip.*;
 
 /**
- * Gera o mod "NebulaTowers" - 4 blocos indestrutíveis coloridos
- * tower_white, tower_red, tower_gray, tower_green
- *
- * Construção do bytecode DIRETO via ASM (sem precisar compilar Java)
- * porque não temos o classpath do Minecraft/Forge.
- *
- * O mod é INDEPENDENTE (não precisa do Ateliê)
+ * Gera o mod "NebulaTowers" CORRETO:
+ * - @Mod annotation
+ * - preInit registra os 4 blocos no GameRegistry
+ * - Os 4 blocos extends Block, setHardness(-1), setResistance(6000000)
+ * - Blocos aparecem no creative tab
  */
 public class BuildNebulaTowers {
-
-    static final String MOD_CLASS = "com/nebula/towers/NebulaTowers.class";
-    static final String TOWER_BASE = "com/nebula/towers/TowerBlock.class";
-    static final String WHITE_CLASS = "com/nebula/towers/TowerWhite.class";
-    static final String RED_CLASS = "com/nebula/towers/TowerRed.class";
-    static final String GRAY_CLASS = "com/nebula/towers/TowerGray.class";
-    static final String GREEN_CLASS = "com/nebula/towers/TowerGreen.class";
 
     public static void main(String[] args) throws Exception {
         String outJar = args.length > 0 ? args[0] : "NebulaTowers-1.7.10-1.0.0.jar";
@@ -29,14 +19,13 @@ public class BuildNebulaTowers {
 
         try (JarOutputStream jos = new JarOutputStream(new FileOutputStream(outJar))) {
 
-            // === TEXTURAS (PNGs de 16x16) ===
-            // Gera texturas sólidas coloridas via Java
+            // === TEXTURAS ===
             addTexture(jos, "assets/nebulatowers/textures/blocks/tower_white.png", generateSolidTexture(255, 255, 255));
             addTexture(jos, "assets/nebulatowers/textures/blocks/tower_red.png", generateSolidTexture(220, 50, 50));
             addTexture(jos, "assets/nebulatowers/textures/blocks/tower_gray.png", generateSolidTexture(120, 120, 120));
             addTexture(jos, "assets/nebulatowers/textures/blocks/tower_green.png", generateSolidTexture(80, 200, 80));
 
-            // === BLOCKSTATES (JSON) ===
+            // === BLOCKSTATES ===
             addText(jos, "assets/nebulatowers/blockstates/tower_white.json",
                 "{\"variants\":{\"normal\":{\"model\":\"nebulatowers:tower_white\"}}}");
             addText(jos, "assets/nebulatowers/blockstates/tower_red.json",
@@ -46,28 +35,16 @@ public class BuildNebulaTowers {
             addText(jos, "assets/nebulatowers/blockstates/tower_green.json",
                 "{\"variants\":{\"normal\":{\"model\":\"nebulatowers:tower_green\"}}}");
 
-            // === MODELS (JSON - cube simples) ===
-            addText(jos, "assets/nebulatowers/models/block/tower_white.json",
-                "{\"parent\":\"builtin/generated\",\"textures\":{\"all\":\"nebulatowers:blocks/tower_white\"},\"elements\":[" +
-                generateCubeElements(8, 12, 4, -4, 0, -2) + "]}");
-            addText(jos, "assets/nebulatowers/models/block/tower_red.json",
-                "{\"parent\":\"builtin/generated\",\"textures\":{\"all\":\"nebulatowers:blocks/tower_red\"},\"elements\":[" +
-                generateCubeElements(8, 12, 4, -4, 0, -2) + "]}");
-            addText(jos, "assets/nebulatowers/models/block/tower_gray.json",
-                "{\"parent\":\"builtin/generated\",\"textures\":{\"all\":\"nebulatowers:blocks/tower_gray\"},\"elements\":[" +
-                generateCubeElements(8, 12, 4, -4, 0, -2) + "]}");
-            addText(jos, "assets/nebulatowers/models/block/tower_green.json",
-                "{\"parent\":\"builtin/generated\",\"textures\":{\"all\":\"nebulatowers:blocks/tower_green\"},\"elements\":[" +
-                generateCubeElements(8, 12, 4, -4, 0, -2) + "]}");
-
-            addText(jos, "assets/nebulatowers/models/item/tower_white.json",
-                "{\"parent\":\"nebulatowers:block/tower_white\"}");
-            addText(jos, "assets/nebulatowers/models/item/tower_red.json",
-                "{\"parent\":\"nebulatowers:block/tower_red\"}");
-            addText(jos, "assets/nebulatowers/models/item/tower_gray.json",
-                "{\"parent\":\"nebulatowers:block/tower_gray\"}");
-            addText(jos, "assets/nebulatowers/models/item/tower_green.json",
-                "{\"parent\":\"nebulatowers:block/tower_green\"}");
+            // === MODELS (cube 8x12x4 - tamanho padrão de torso) ===
+            String cubeElements = "[" +
+                "{\"from\":[0,0,0],\"to\":[8,12,4],\"faces\":{\"down\":{\"uv\":[0,0,16,16],\"texture\":\"#all\"},\"up\":{\"uv\":[0,0,16,16],\"texture\":\"#all\"},\"north\":{\"uv\":[0,0,16,16],\"texture\":\"#all\"},\"south\":{\"uv\":[0,0,16,16],\"texture\":\"#all\"},\"west\":{\"uv\":[0,0,16,16],\"texture\":\"#all\"},\"east\":{\"uv\":[0,0,16,16],\"texture\":\"#all\"}}}" +
+                "]";
+            for (String c : new String[]{"white", "red", "gray", "green"}) {
+                addText(jos, "assets/nebulatowers/models/block/tower_" + c + ".json",
+                    "{\"parent\":\"builtin/generated\",\"textures\":{\"all\":\"nebulatowers:blocks/tower_" + c + "\"},\"elements\":" + cubeElements + "}");
+                addText(jos, "assets/nebulatowers/models/item/tower_" + c + ".json",
+                    "{\"parent\":\"nebulatowers:block/tower_" + c + "\"}");
+            }
 
             // === LANG ===
             addText(jos, "assets/nebulatowers/lang/en_US.lang",
@@ -89,39 +66,25 @@ public class BuildNebulaTowers {
                 "  {\n" +
                 "    \"modid\": \"nebulatowers\",\n" +
                 "    \"name\": \"Nebula Towers\",\n" +
-                "    \"description\": \"4 indestructible colored tower blocks (white, red, gray, green). Recreated from the schematic torreIA2.\",\n" +
+                "    \"description\": \"4 indestructible colored tower blocks. Recreated from schematic torreIA2.\",\n" +
                 "    \"version\": \"1.0.0\",\n" +
                 "    \"mcversion\": \"1.7.10\",\n" +
-                "    \"authorList\": [\"Nébula\", \"Ryan5555fakie\"],\n" +
-                "    \"credits\": \"Reconstructed from schematic analysis. Original blocks were part of the Ateliê Nébula mod.\",\n" +
+                "    \"authorList\": [\"Nebula\", \"Ryan5555fakie\"],\n" +
                 "    \"dependencies\": []\n" +
                 "  }\n" +
                 "]");
 
-            // === CLASSES JAVA (geradas via ASM) ===
-            addClass(jos, MOD_CLASS, generateModClass());
-            addClass(jos, WHITE_CLASS, generateTowerClass("TowerWhite", "tower_white", 0));
-            addClass(jos, RED_CLASS, generateTowerClass("TowerRed", "tower_red", 14));  // red wool meta
-            addClass(jos, GRAY_CLASS, generateTowerClass("TowerGray", "tower_gray", 7));  // gray wool meta
-            addClass(jos, GREEN_CLASS, generateTowerClass("TowerGreen", "tower_green", 5));  // green wool meta
+            // === CLASSES ===
+            addClass(jos, "com/nebula/towers/NebulaTowers.class", generateModClass());
+            addClass(jos, "com/nebula/towers/TowerWhite.class", generateTowerClass("TowerWhite", "tower_white"));
+            addClass(jos, "com/nebula/towers/TowerRed.class", generateTowerClass("TowerRed", "tower_red"));
+            addClass(jos, "com/nebula/towers/TowerGray.class", generateTowerClass("TowerGray", "tower_gray"));
+            addClass(jos, "com/nebula/towers/TowerGreen.class", generateTowerClass("TowerGreen", "tower_green"));
         }
         System.out.println("[DONE] JAR gerado: " + outJar);
     }
 
-    static String generateCubeElements(int w, int h, int d, int x, int y, int z) {
-        // Generate cube faces (6 faces, each a quad)
-        int x2 = x + w, y2 = y + h, z2 = z + d;
-        StringBuilder sb = new StringBuilder();
-        // Front (Z = z, normal -Z)
-        sb.append("{\"from\":[").append(x).append(",").append(y).append(",").append(z).append("],")
-          .append("\"to\":[").append(x2).append(",").append(y2).append(",").append(z).append("],")
-          .append("\"faces\":{\"down\":{\"uv\":[0,0,16,16]},\"up\":{\"uv\":[0,0,16,16]},\"north\":{\"uv\":[0,0,16,16]},\"south\":{\"uv\":[0,0,16,16]},\"west\":{\"uv\":[0,0,16,16]},\"east\":{\"uv\":[0,0,16,16]}}},");
-        // ... simplify: just one element
-        return sb.toString().replaceAll(",$", "");
-    }
-
     static byte[] generateSolidTexture(int r, int g, int b) throws IOException {
-        // PNG 16x16, solid color with subtle border
         java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
         javax.imageio.ImageIO.write(createImage(16, 16, r, g, b), "PNG", baos);
         return baos.toByteArray();
@@ -130,13 +93,10 @@ public class BuildNebulaTowers {
     static java.awt.image.BufferedImage createImage(int w, int h, int r, int g, int b) {
         java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(w, h, java.awt.image.BufferedImage.TYPE_INT_ARGB);
         java.awt.Graphics2D g2 = img.createGraphics();
-        // Background
         g2.setColor(new java.awt.Color(r, g, b));
         g2.fillRect(0, 0, w, h);
-        // Border
         g2.setColor(new java.awt.Color(Math.max(0, r-40), Math.max(0, g-40), Math.max(0, b-40)));
         g2.drawRect(0, 0, w-1, h-1);
-        // Subtle pattern (dots)
         g2.setColor(new java.awt.Color(Math.max(0, r-20), Math.max(0, g-20), Math.max(0, b-20)));
         for (int y = 2; y < h; y += 4) {
             for (int x = 2; x < w; x += 4) {
@@ -165,30 +125,49 @@ public class BuildNebulaTowers {
         jos.closeEntry();
     }
 
-    // === GERAÇÃO DAS CLASSES JAVA VIA ASM ===
-
+    // === MOD CLASS com @Mod + preInit que registra blocos ===
     static byte[] generateModClass() {
-        // Classe NebulaTowers (mod entry point) — extends com.nebula.atelier.BaseMod? Não!
-        // Vamos fazer SEM dependência — só um @Mod class
-        ClassWriter cw = new ClassWriter(0);
+        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
         cw.visit(Opcodes.V1_7, Opcodes.ACC_PUBLIC, "com/nebula/towers/NebulaTowers", null,
                 "java/lang/Object", null);
 
         // Annotation @Mod(modid = "nebulatowers", name = "Nebula Towers", version = "1.0.0")
-        // (omitido por simplicidade)
+        AnnotationVisitor modAnn = cw.visitAnnotation("Lcpw/mods/fml/common/Mod;", true);
+        modAnn.visit("modid", "nebulatowers");
+        modAnn.visit("name", "Nebula Towers");
+        modAnn.visit("version", "1.0.0");
+        modAnn.visitEnd();
 
-        // Field estático: instance
+        // Annotation @Mod$Instance("nebulatowers")
+        AnnotationVisitor instAnn = cw.visitAnnotation("Lcpw/mods/fml/common/Mod$Instance;", true);
+        instAnn.visit("value", "nebulatowers");
+        instAnn.visitEnd();
+
+        // public static NebulaTowers instance
         cw.visitField(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "instance",
                 "Lcom/nebula/towers/NebulaTowers;", null, null).visitEnd();
 
-        // Bloco estático (vazio)
+        // public static Block towerWhite
+        cw.visitField(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "towerWhite",
+                "Lnet/minecraft/block/Block;", null, null).visitEnd();
+        // public static Block towerRed
+        cw.visitField(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "towerRed",
+                "Lnet/minecraft/block/Block;", null, null).visitEnd();
+        // public static Block towerGray
+        cw.visitField(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "towerGray",
+                "Lnet/minecraft/block/Block;", null, null).visitEnd();
+        // public static Block towerGreen
+        cw.visitField(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "towerGreen",
+                "Lnet/minecraft/block/Block;", null, null).visitEnd();
+
+        // <clinit> - vazio
         MethodVisitor clinit = cw.visitMethod(Opcodes.ACC_STATIC, "<clinit>", "()V", null, null);
         clinit.visitCode();
         clinit.visitInsn(Opcodes.RETURN);
         clinit.visitMaxs(0, 0);
         clinit.visitEnd();
 
-        // Construtor vazio
+        // <init>
         MethodVisitor init = cw.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
         init.visitCode();
         init.visitVarInsn(Opcodes.ALOAD, 0);
@@ -197,59 +176,119 @@ public class BuildNebulaTowers {
         init.visitMaxs(1, 1);
         init.visitEnd();
 
-        // Método preInit
-        MethodVisitor preInit = cw.visitMethod(Opcodes.ACC_PUBLIC, "preInit", "()V", null, null);
+        // ============ preInit(@Mod.EventHandler) ============
+        // Esse método REGISTRA os blocos no GameRegistry
+        MethodVisitor preInit = cw.visitMethod(Opcodes.ACC_PUBLIC, "preInit",
+                "(Lcpw/mods/fml/common/event/FMLPreInitializationEvent;)V", null, null);
+        preInit.visitAnnotation("Lcpw/mods/fml/common/Mod$EventHandler;", true).visitEnd();
         preInit.visitCode();
+
+        // 1. towerWhite = new TowerWhite()
+        preInit.visitTypeInsn(Opcodes.NEW, "com/nebula/towers/TowerWhite");
+        preInit.visitInsn(Opcodes.DUP);
+        preInit.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/nebula/towers/TowerWhite", "<init>", "()V", false);
+        preInit.visitFieldInsn(Opcodes.PUTSTATIC, "com/nebula/towers/NebulaTowers", "towerWhite", "Lnet/minecraft/block/Block;");
+
+        // 2. towerRed = new TowerRed()
+        preInit.visitTypeInsn(Opcodes.NEW, "com/nebula/towers/TowerRed");
+        preInit.visitInsn(Opcodes.DUP);
+        preInit.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/nebula/towers/TowerRed", "<init>", "()V", false);
+        preInit.visitFieldInsn(Opcodes.PUTSTATIC, "com/nebula/towers/NebulaTowers", "towerRed", "Lnet/minecraft/block/Block;");
+
+        // 3. towerGray = new TowerGray()
+        preInit.visitTypeInsn(Opcodes.NEW, "com/nebula/towers/TowerGray");
+        preInit.visitInsn(Opcodes.DUP);
+        preInit.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/nebula/towers/TowerGray", "<init>", "()V", false);
+        preInit.visitFieldInsn(Opcodes.PUTSTATIC, "com/nebula/towers/NebulaTowers", "towerGray", "Lnet/minecraft/block/Block;");
+
+        // 4. towerGreen = new TowerGreen()
+        preInit.visitTypeInsn(Opcodes.NEW, "com/nebula/towers/TowerGreen");
+        preInit.visitInsn(Opcodes.DUP);
+        preInit.visitMethodInsn(Opcodes.INVOKESPECIAL, "com/nebula/towers/TowerGreen", "<init>", "()V", false);
+        preInit.visitFieldInsn(Opcodes.PUTSTATIC, "com/nebula/towers/NebulaTowers", "towerGreen", "Lnet/minecraft/block/Block;");
+
+        // 5. GameRegistry.registerBlock(towerWhite, "tower_white")
+        preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerWhite", "Lnet/minecraft/block/Block;");
+        preInit.visitLdcInsn("tower_white");
+        preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+
+        // 6. GameRegistry.registerBlock(towerRed, "tower_red")
+        preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerRed", "Lnet/minecraft/block/Block;");
+        preInit.visitLdcInsn("tower_red");
+        preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+
+        // 7. GameRegistry.registerBlock(towerGray, "tower_gray")
+        preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerGray", "Lnet/minecraft/block/Block;");
+        preInit.visitLdcInsn("tower_gray");
+        preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+
+        // 8. GameRegistry.registerBlock(towerGreen, "tower_green")
+        preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerGreen", "Lnet/minecraft/block/Block;");
+        preInit.visitLdcInsn("tower_green");
+        preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+
         preInit.visitInsn(Opcodes.RETURN);
-        preInit.visitMaxs(0, 1);
+        preInit.visitMaxs(3, 2);
         preInit.visitEnd();
 
         cw.visitEnd();
         return cw.toByteArray();
     }
 
-    static byte[] generateTowerClass(String name, String registryName, int woolMeta) {
-        // Cada Tower<Cor> extends net.minecraft.block.Block
-        // Tem construtor que setHardness(-1) e setResistance(6000000)
+    // === CLASSE Tower<Cor> extends Block ===
+    static byte[] generateTowerClass(String className, String registryName) {
         ClassWriter cw = new ClassWriter(0);
-        cw.visit(Opcodes.V1_7, Opcodes.ACC_PUBLIC, "com/nebula/towers/" + name, null,
+        cw.visit(Opcodes.V1_7, Opcodes.ACC_PUBLIC, "com/nebula/towers/" + className, null,
                 "net/minecraft/block/Block", null);
 
         // Construtor
         MethodVisitor init = cw.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
         init.visitCode();
-        init.visitVarInsn(Opcodes.ALOAD, 0);  // this
-        // super(Material.rock)
-        init.visitFieldInsn(Opcodes.GETSTATIC, "net/minecraft/block/material/Material", "field_151576_e", "Lnet/minecraft/block/material/Material;");
-        init.visitMethodInsn(Opcodes.INVOKESPECIAL, "net/minecraft/block/Block", "<init>", "(Lnet/minecraft/block/material/Material;)V", false);
+        init.visitVarInsn(Opcodes.ALOAD, 0);
 
-        // setHardness(-1.0f) - INDESTRUTÍVEL!
+        // super(Material.rock = field_151576_e)
+        init.visitFieldInsn(Opcodes.GETSTATIC, "net/minecraft/block/material/Material",
+                "field_151576_e", "Lnet/minecraft/block/material/Material;");
+        init.visitMethodInsn(Opcodes.INVOKESPECIAL, "net/minecraft/block/Block",
+                "<init>", "(Lnet/minecraft/block/material/Material;)V", false);
+
+        // setHardness(-1.0f) - INDESTRUTÍVEL
         init.visitVarInsn(Opcodes.ALOAD, 0);
         init.visitLdcInsn(-1.0f);
-        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block", "func_149711_c", "(F)V", false);  // setHardness
+        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
+                "func_149711_c", "(F)V", false);
 
-        // setResistance(6000000.0f) - Invencível a explosões
+        // setResistance(6000000.0f)
         init.visitVarInsn(Opcodes.ALOAD, 0);
         init.visitLdcInsn(6000000.0f);
-        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block", "func_149752_b", "(F)V", false);  // setResistance
+        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
+                "func_149752_b", "(F)V", false);
 
         // setUnlocalizedName("tile.nebulatowers:" + registryName)
         init.visitVarInsn(Opcodes.ALOAD, 0);
         init.visitLdcInsn("tile.nebulatowers:" + registryName);
-        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block", "func_149663_c", "(Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
+        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
+                "func_149663_c", "(Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
         init.visitInsn(Opcodes.POP);
 
         // setTextureName("nebulatowers:" + registryName)
         init.visitVarInsn(Opcodes.ALOAD, 0);
         init.visitLdcInsn("nebulatowers:" + registryName);
-        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block", "func_111022_d", "(Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
+        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
+                "func_111022_d", "(Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
         init.visitInsn(Opcodes.POP);
 
-        // setCreativeTab(CreativeTabs.tabBlock)  (opcional)
-        // init.visitVarInsn(Opcodes.ALOAD, 0);
-        // init.visitFieldInsn(Opcodes.GETSTATIC, "net/minecraft/creativetab/CreativeTabs", "field_78030_b", "Lnet/minecraft/creativetab/CreativeTabs;");
-        // init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block", "func_149647_a", "(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;", false);
-        // init.visitInsn(Opcodes.POP);
+        // setCreativeTab(Blocks tab)
+        init.visitVarInsn(Opcodes.ALOAD, 0);
+        init.visitFieldInsn(Opcodes.GETSTATIC, "net/minecraft/creativetab/CreativeTabs",
+                "field_78030_b", "Lnet/minecraft/creativetab/CreativeTabs;");
+        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
+                "func_149647_a", "(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;", false);
+        init.visitInsn(Opcodes.POP);
 
         init.visitInsn(Opcodes.RETURN);
         init.visitMaxs(3, 1);
