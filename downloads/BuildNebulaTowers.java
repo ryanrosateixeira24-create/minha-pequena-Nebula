@@ -144,7 +144,9 @@ public class BuildNebulaTowers {
         instAnn.visitEnd();
 
         // public static NebulaTowers instance
-        cw.visitField(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "instance",
+        // IMPORTANTE: O nome do campo TEM QUE ser igual ao modid!
+        // Porque o @Mod.Instance("nebulatowers") procura por um campo chamado "nebulatowers"
+        cw.visitField(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "nebulatowers",
                 "Lcom/nebula/towers/NebulaTowers;", null, null).visitEnd();
 
         // public static Block towerWhite
