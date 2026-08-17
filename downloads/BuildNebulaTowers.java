@@ -259,16 +259,19 @@ public class BuildNebulaTowers {
                 "<init>", "(Lnet/minecraft/block/material/Material;)V", false);
 
         // setHardness(-1.0f) - INDESTRUTÍVEL
+        // IMPORTANTE: func_149711_c RETORNA Block (não void!)
         init.visitVarInsn(Opcodes.ALOAD, 0);
         init.visitLdcInsn(-1.0f);
         init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
-                "func_149711_c", "(F)V", false);
+                "func_149711_c", "(F)Lnet/minecraft/block/Block;", false);
+        init.visitInsn(Opcodes.POP);
 
-        // setResistance(6000000.0f)
+        // setResistance(6000000.0f) - também RETORNA Block
         init.visitVarInsn(Opcodes.ALOAD, 0);
         init.visitLdcInsn(6000000.0f);
         init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
-                "func_149752_b", "(F)V", false);
+                "func_149752_b", "(F)Lnet/minecraft/block/Block;", false);
+        init.visitInsn(Opcodes.POP);
 
         // setUnlocalizedName("tile.nebulatowers:" + registryName)
         init.visitVarInsn(Opcodes.ALOAD, 0);
