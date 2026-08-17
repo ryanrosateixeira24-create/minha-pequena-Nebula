@@ -93,7 +93,9 @@ public class BuildNebulaTowers {
     }
 
     static java.awt.image.BufferedImage createImage(int w, int h, int r, int g, int b) {
-        java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(w, h, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+        // IMPORTANTE: usar TYPE_INT_RGB (sem alpha) pra compatibilidade com MC 1.7.10
+        // MC 1.7.10 não lida bem com transparência em alguns casos
+        java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(w, h, java.awt.image.BufferedImage.TYPE_INT_RGB);
         java.awt.Graphics2D g2 = img.createGraphics();
         g2.setColor(new java.awt.Color(r, g, b));
         g2.fillRect(0, 0, w, h);
