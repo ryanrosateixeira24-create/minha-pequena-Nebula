@@ -208,9 +208,11 @@ public class BuildNebulaTowers {
     }
 
     // === TOWER CLASS ===
+    // IMPORTANTE: package = com.nebula.atelier.towers (não com.nebula.towers)
+    // pra ser COMPATÍVEL com o Ateliê Nébula e o schematic
     static byte[] generateTowerClass(String className, String registryName) {
         ClassWriter cw = new ClassWriter(0);
-        cw.visit(Opcodes.V1_7, Opcodes.ACC_PUBLIC, "com/nebula/towers/" + className, null,
+        cw.visit(Opcodes.V1_7, Opcodes.ACC_PUBLIC, "com/nebula/atelier/towers/" + className, null,
                 "net/minecraft/block/Block", null);
 
         MethodVisitor init = cw.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
