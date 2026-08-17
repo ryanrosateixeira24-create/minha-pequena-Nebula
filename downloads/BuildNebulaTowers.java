@@ -93,18 +93,31 @@ public class BuildNebulaTowers {
     }
 
     static java.awt.image.BufferedImage createImage(int w, int h, int r, int g, int b) {
-        // IMPORTANTE: usar TYPE_INT_RGB (sem alpha) pra compatibilidade com MC 1.7.10
-        // MC 1.7.10 não lida bem com transparência em alguns casos
-        java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(w, h, java.awt.image.BufferedImage.TYPE_INT_RGB);
+        // Usa TYPE_INT_ARGB (com alpha) - igual sawbench-metal.png do Ateliê
+        // MC 1.7.10 funciona melhor com RGBA
+        java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(w, h, java.awt.image.BufferedImage.TYPE_INT_ARGB);
         java.awt.Graphics2D g2 = img.createGraphics();
+        // Fundo opaco
         g2.setColor(new java.awt.Color(r, g, b));
         g2.fillRect(0, 0, w, h);
+        // Borda mais escura (4 pixels de largura)
         g2.setColor(new java.awt.Color(Math.max(0, r-40), Math.max(0, g-40), Math.max(0, b-40)));
-        g2.drawRect(0, 0, w-1, h-1);
+        g2.fillRect(0, 0, w, 2);
+        g2.fillRect(0, h-2, w, 2);
+        g2.fillRect(0, 0, 2, h);
+        g2.fillRect(w-2, 0, 2, h);
+        // Padrão mais detalhado (tijolos/escama)
         g2.setColor(new java.awt.Color(Math.max(0, r-20), Math.max(0, g-20), Math.max(0, b-20)));
-        for (int y = 2; y < h; y += 4) {
-            for (int x = 2; x < w; x += 4) {
-                g2.fillRect(x, y, 1, 1);
+        for (int y = 3; y < h-3; y += 4) {
+            for (int x = 3; x < w-3; x += 4) {
+                g2.fillRect(x, y, 2, 2);
+            }
+        }
+        // Detalhes extras nas bordas dos tijolos
+        g2.setColor(new java.awt.Color(Math.min(255, r+30), Math.min(255, g+30), Math.min(255, b+30)));
+        for (int y = 3; y < h-3; y += 4) {
+            for (int x = 3; x < w-3; x += 4) {
+                g2.drawLine(x+2, y, x+2, y+1);
             }
         }
         g2.dispose();
