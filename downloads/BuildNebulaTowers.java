@@ -280,12 +280,9 @@ public class BuildNebulaTowers {
                 "func_149663_c", "(Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
         init.visitInsn(Opcodes.POP);
 
-        // setTextureName("nebulatowers:" + registryName)
-        init.visitVarInsn(Opcodes.ALOAD, 0);
-        init.visitLdcInsn("nebulatowers:" + registryName);
-        init.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "net/minecraft/block/Block",
-                "func_111022_d", "(Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
-        init.visitInsn(Opcodes.POP);
+        // NOTA: setTextureName (func_111022_d) NÃO EXISTE em MC 1.7.10 vanilla.
+        // A textura é resolvida pelo blockstate JSON (model + texture name)
+        // Não precisa chamar aqui.
 
         // setCreativeTab(Blocks tab)
         init.visitVarInsn(Opcodes.ALOAD, 0);
