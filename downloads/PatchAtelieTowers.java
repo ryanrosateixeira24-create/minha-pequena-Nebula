@@ -188,18 +188,15 @@ public class PatchAtelieTowers {
                     String field = "tower" + colors[i];
                     String registry = "tower_" + names[i];
 
-                    // this.towerWhite = new TowerWhite()
-                    inject.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                    // NebulaAtelier.towerWhite = new TowerWhite()  (STATIC, sem aload_0!)
                     inject.add(new TypeInsnNode(Opcodes.NEW, className));
                     inject.add(new InsnNode(Opcodes.DUP));
                     inject.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, className, "<init>", "()V", false));
-                    inject.add(new FieldInsnNode(Opcodes.PUTFIELD,
+                    inject.add(new FieldInsnNode(Opcodes.PUTSTATIC,
                         "com/nebula/atelier/NebulaAtelier", field, "Lnet/minecraft/block/Block;"));
 
-                    // GameRegistry.registerBlock(this.towerWhite, "tower_white")
-                    // IMPORTANTE: retorna Block
-                    inject.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    inject.add(new FieldInsnNode(Opcodes.GETFIELD,
+                    // GameRegistry.registerBlock(NebulaAtelier.towerWhite, "tower_white")
+                    inject.add(new FieldInsnNode(Opcodes.GETSTATIC,
                         "com/nebula/atelier/NebulaAtelier", field, "Lnet/minecraft/block/Block;"));
                     inject.add(new LdcInsnNode(registry));
                     inject.add(new MethodInsnNode(Opcodes.INVOKESTATIC,
