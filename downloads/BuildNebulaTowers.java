@@ -213,25 +213,25 @@ public class BuildNebulaTowers {
         preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerWhite", "Lnet/minecraft/block/Block;");
         preInit.visitLdcInsn("tower_white");
         preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
-                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
 
         // 6. GameRegistry.registerBlock(towerRed, "tower_red")
         preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerRed", "Lnet/minecraft/block/Block;");
         preInit.visitLdcInsn("tower_red");
         preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
-                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
 
         // 7. GameRegistry.registerBlock(towerGray, "tower_gray")
         preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerGray", "Lnet/minecraft/block/Block;");
         preInit.visitLdcInsn("tower_gray");
         preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
-                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
 
         // 8. GameRegistry.registerBlock(towerGreen, "tower_green")
         preInit.visitFieldInsn(Opcodes.GETSTATIC, "com/nebula/towers/NebulaTowers", "towerGreen", "Lnet/minecraft/block/Block;");
         preInit.visitLdcInsn("tower_green");
         preInit.visitMethodInsn(Opcodes.INVOKESTATIC, "cpw/mods/fml/common/registry/GameRegistry", "registerBlock",
-                "(Lnet/minecraft/block/Block;Ljava/lang/String;)V", false);
+                "(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/block/Block;", false);
 
         preInit.visitInsn(Opcodes.RETURN);
         preInit.visitMaxs(3, 2);
